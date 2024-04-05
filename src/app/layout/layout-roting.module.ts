@@ -15,6 +15,34 @@ const routes: Routes = [
                 path: 'user-admin',
                 loadChildren: () => import('../modules').then((m) => m.UserAdminModule)
             },
+            {
+                path: 'promo',
+                loadChildren: () => import('../modules').then((m) => m.PromoModule)
+            },
+            {
+                path: 'plan',
+                loadChildren: () => import('../modules').then((m) => m.PlanModule)
+            },
+            {
+                path: 'category',
+                loadChildren: () => import('../modules').then((m) => m.CategoryModule)
+            },
+            {
+                path: 'country',
+                loadChildren: () => import('../modules').then((m) => m.CountryModule)
+            },
+            {
+                path: 'movie-genre',
+                loadChildren: () => import('../modules').then((m) => m.MovieGenreModule)
+            },
+            {
+                path: 'sounder',
+                loadChildren: () => import('../modules').then((m) => m.SounderModule)
+            },
+            {
+                path: 'year',
+                loadChildren: () => import('../modules').then((m) => m.YearModule)
+            },
         ]
     }
 ];
