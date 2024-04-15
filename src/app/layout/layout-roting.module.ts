@@ -43,6 +43,10 @@ const routes: Routes = [
                 path: 'year',
                 loadChildren: () => import('../modules').then((m) => m.YearModule)
             },
+            {
+                path: 'movie',
+                loadChildren: () => import('../modules').then((m) => m.MovieModule)
+            },
         ]
     }
 ];

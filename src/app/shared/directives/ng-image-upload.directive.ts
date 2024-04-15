@@ -9,7 +9,7 @@ export class UploadImageDirective {
   @Input() maxSize: number = 5242880; // 5MB in bytes
   @Output() imageUploaded = new EventEmitter<File>();
 
-  constructor(private message:NzMessageService) { }
+  constructor(private message:NzMessageService,) { }
 
   @HostListener('change', ['$event.target.files']) handleImageUpload(files: FileList) {
     const file = files.item(0);
