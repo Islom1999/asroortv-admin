@@ -8,6 +8,8 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { PermissionService } from '../../../../shared/services/permission.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { MovieType } from '../../../../../enumerations';
+import { MovieInfoComponent } from '../movie-info/movie-info.component';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'app-movie-list',
@@ -34,6 +36,7 @@ export class MovieListComponent implements OnInit {
     private _breadcrumbService: BreadcrumbsService,
     private _permission: PermissionService,
     private _permissionSrv: NgxPermissionsService,  
+    private drawerService: NzDrawerService,
   ){
   }
 
@@ -77,5 +80,18 @@ export class MovieListComponent implements OnInit {
     this._baseSrv.delete(id).subscribe((data) => {
         this._nzMessageService.error('delete')
     })
+  }
+
+  // info
+  open(id:string, movie_type:MovieType): void {
+    this.drawerService.create<MovieInfoComponent, { id: string, movie_type:MovieType }, string>({
+      nzTitle: 'Movie ma\'lumotlari',
+      nzContent: MovieInfoComponent,
+      nzSize: 'large',
+      nzContentParams: {
+        id: id,
+        movie_type
+      }
+    });
   }
 }

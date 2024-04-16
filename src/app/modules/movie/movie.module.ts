@@ -9,6 +9,9 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MovieType } from '../../../enumerations';
+import { MovieInfoComponent } from './components/movie-info/movie-info.component';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { SerialPartDetailComponent } from './components/serial-part-detail/serial-part-detail.component';
 
 const routes: Routes = [
   {
@@ -40,7 +43,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     MovieListComponent,
-    MovieDetailComponent
+    MovieDetailComponent,
+    MovieInfoComponent,
+    SerialPartDetailComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +57,7 @@ const routes: Routes = [
 
     NzUploadModule,
     NzModalModule,
+    NzDrawerModule,
   ]
 })
 export class MovieModule { }

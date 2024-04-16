@@ -52,6 +52,9 @@
                         <a [routerLink]="['update', data.movie_type == movie_type_serial ? 'serial':'movie' ,data.id]" nzType="default" nz-button nzSize="large">
                             <span nz-icon nzType="edit" nzTheme="outline" style="color: blue;"></span>
                         </a>
+                        <button nzType="default" nz-button nzSize="large" (click)="open(data.id!, data.movie_type!)">
+                            <span nz-icon nzType="folder-open" nzTheme="outline" style="color: blue;"></span>
+                        </button>
                     </nz-button-group>
                 </td>
             </tr>
