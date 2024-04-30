@@ -59,8 +59,8 @@ export class MovieDetailComponent {
   listOfSelectedCategory: string[] = []
   listOfSelectedMovieGenre: string[] = []
 
-  // uploadURL = `${environment.apiUrl}/image/upload`
-  uploadURL = `https://api.homilador.uz/api/image/upload`
+  uploadURL = `${environment.apiUrl}/image/upload`
+  // uploadURL = `https://api.tvtime.uz/api/image/upload`
   
   loading = true;
   disableBtn = true;
