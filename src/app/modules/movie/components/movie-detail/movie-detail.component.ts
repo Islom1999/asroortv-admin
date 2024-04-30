@@ -211,11 +211,10 @@ export class MovieDetailComponent {
             uid: `-${index+1}`,
             name: item,
             status: 'done',
-            // url: `${environment.apiUrl}/image/${item}`
-            url: `https://api.homilador.uz/api/image/${item}`,
+            url: `${environment.apiUrl}/image/${item}`,
             response: {
               filename: item,
-              url: `https://api.homilador.uz/api/image/${item}`,
+              url: `${environment.apiUrl}/image/${item}`,
             }
           }
         })
@@ -224,11 +223,10 @@ export class MovieDetailComponent {
             uid: `-${index+1}`,
             name: item,
             status: 'done',
-            // url: `${environment.apiUrl}/image/${item}`
-            url: `https://api.homilador.uz/api/image/${item}`,
+            url: `${environment.apiUrl}/image/${item}`,
             response: {
               filename: item,
-              url: `https://api.homilador.uz/api/image/${item}`,
+              url: `${environment.apiUrl}/image/${item}`,
             }
           }
         })
