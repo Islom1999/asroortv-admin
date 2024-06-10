@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://api.tvtime.uz/api',
+    apiUrl: 'https://bananatv.topsites.uz/api',
 };
