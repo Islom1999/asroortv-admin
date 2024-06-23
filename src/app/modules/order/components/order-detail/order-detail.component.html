@@ -1,0 +1,69 @@
+
+<h2>Foydalanuvchi ma'lumotlari</h2>
+<nz-table [nzData]="[order?.user]" [nzFrontPagination]="false" nz-responsive [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th>Ism familiya</th>
+            <th>Telefon</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Premium sanasi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ order?.user?.name}}</td>
+            <td>{{ order?.user?.phone ? order?.user?.phone: '-----' }}</td>
+            <td>{{ order?.user?.email ? order?.user?.email : '-----' }}</td>
+            <td>{{ order?.user?.is_block ? 'Bloklangan' : 'Avtice' }}</td>
+            <td>{{ order?.user?.status_type }}</td>
+            <td>{{ order?.user?.premium_end_date  ? (order?.user?.premium_end_date | date) : '-----'}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+
+
+<h2>Tarif ma'lumotlari</h2>
+<nz-table [nzData]="[order?.plan]" [nzFrontPagination]="false" nz-responsive [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th>Nomi</th>
+            <th>Narxi</th>
+            <th>Muddati</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ order?.plan?.name }}</td>
+            <td>{{ order?.plan?.price }}</td>
+            <td>{{ order?.plan?.premium_date ? (order?.plan?.premium_date + '-kun') : '-----' }}</td>
+            <td>{{ order?.plan?.is_active ? 'Active' : 'Bloklangan' }}</td>
+        </tr>
+    </tbody>
+</nz-table>
+
+
+<h2>To'lov ma'lumotlari</h2>
+<nz-table [nzData]="[order?.transactions || []]" [nzFrontPagination]="false" nz-responsive [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th>Nomi</th>
+            <th>Narxi</th>
+            <th>Muddati</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of (order?.transactions || []); index as i">
+            <td>{{ data.trans_id }}</td>
+            <td>{{ data.provider }}</td>
+            <td>{{ data.amount }}</td>
+            <td>{{ data.state }}</td>
+            <td>{{ data.perform_time ? (data.perform_time | date) : '-----' }}</td>
+        </tr>
+    </tbody>
+</nz-table>
+
+

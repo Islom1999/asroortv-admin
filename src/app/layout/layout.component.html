@@ -1,6 +1,8 @@
 <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-        <div class="logo"></div>
+        <div class="logo">
+            <img src="/assets/images/logo.jpg">
+        </div>
         <ul nz-menu nzTheme="dark" nzMode="inline">
             <li nz-submenu nzTitle="Admin" nzIcon="team">
                 <ul>
@@ -27,12 +29,34 @@
                     <!-- <li nz-menu-item routerLink="/movie-part">Serial parts</li> -->
                 </ul>
             </li>
+
+            <li nz-submenu nzTitle="User" nzIcon="user">
+                <ul>
+                    <li nz-menu-item routerLink="/user">Foydalanuvchilar</li>
+                    <li nz-menu-item routerLink="/order">Buyurtmalar</li>
+                </ul>
+            </li>
         </ul>
     </nz-sider>
     <nz-layout>
         <nz-header>
             <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
                 (click)="isCollapsed = !isCollapsed"></span>
+    
+            <ul nz-menu nzMode="horizontal">
+                <li nz-submenu nzPlacement="bottomRight" nzTitle="bottomRight" nzTitle="Admin" nzIcon="user">
+                    <ul>
+                        <li>
+                            <ul>
+                                <!-- <li nz-menu-item routerLink="profile">Profile</li> -->
+                                <li nz-menu-item (click)="logout()">
+                                    Logout
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </nz-header>
         <nz-content>
             

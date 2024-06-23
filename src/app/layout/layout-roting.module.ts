@@ -47,6 +47,14 @@ const routes: Routes = [
                 path: 'movie',
                 loadChildren: () => import('../modules').then((m) => m.MovieModule)
             },
+            {
+                path: 'user',
+                loadChildren: () => import('../modules').then((m) => m.UserClientModule)
+            },
+            {
+                path: 'order',
+                loadChildren: () => import('../modules').then((m) => m.OrderModule)
+            },
         ]
     }
 ];
