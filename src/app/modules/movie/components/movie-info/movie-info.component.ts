@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { MovieService } from '../../service/movie.service';
 import { IMovie } from '../../../../../interfaces';
 import { Observable } from 'rxjs';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { SerialPartDetailComponent } from '../serial-part-detail/serial-part-detail.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { MovieType } from '../../../../../enumerations';
@@ -25,6 +25,7 @@ export class MovieInfoComponent implements OnInit {
     private _movieSrv: MovieService,
     private _nzMessageService: NzMessageService,
     private drawerService: NzDrawerService,
+    private drawerRef: NzDrawerRef,
   ){}
  
   ngOnInit(): void {
@@ -50,5 +51,10 @@ export class MovieInfoComponent implements OnInit {
         parent_id: this.id,
       }
     });
+    this.close()
+  }
+
+  close() {
+    this.drawerRef.close()
   }
 }

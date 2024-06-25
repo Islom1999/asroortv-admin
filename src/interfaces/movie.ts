@@ -38,6 +38,12 @@ export interface IMovie{
 
     parent_movie?:IMovie
     childen_movie?:IMovie[]
+
+    video_id: string;
+    format: number[];
+    video_type: string;
+
+    video_file?: IVideo;
 }   
 
 export interface IVideo{

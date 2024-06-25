@@ -54,6 +54,11 @@
                             nz-button (nzOnConfirm)="delete(data.id)">
                             <span nz-icon nzType="delete" nzTheme="outline" style="color: red;"></span>
                         </button>
+                        
+                        <a *ngIf="data?.video_id" [routerLink]="['/video', 'info', data.video_id]" nzType="default" nz-button nzSize="large">
+                            <span nz-icon nzType="eye" nzTheme="outline" style="color: blue;"></span>
+                        </a>
+
                         <button nzType="default" nz-button nzSize="large" (click)="open(data.id!)">
                             <span nz-icon nzType="folder-open" nzTheme="outline" style="color: blue;"></span>
                         </button>

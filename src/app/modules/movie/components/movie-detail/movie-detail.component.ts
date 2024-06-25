@@ -22,6 +22,8 @@ import { YearService } from '../../../year/service/year.service';
 import { CategoryService } from '../../../category/service/category.service';
 import { SounderService } from '../../../sounder/service/sounder.service';
 import { MovieGenreService } from '../../../movie-genre/service/movie-genre.service';
+import { VideosService } from '../../../videos/service/videos.service';
+import { IMovie, IVideo } from '../../../../../interfaces';
 
 export interface IUploadRes{
   url: string
@@ -44,6 +46,8 @@ const getBase64 = (file: File) => {
 })
 export class MovieDetailComponent {
   public Editor = ClassicEditor;
+  movie!: IMovie
+
   quality: Quality[] = Object.values(Quality);
   status_type: StatusType[] = Object.values(StatusType);
   movie_type!: MovieType
@@ -54,6 +58,7 @@ export class MovieDetailComponent {
   sounder$!:Observable<ISounder[]>
   category$!:Observable<ICategory[]>
   movie_genre$!:Observable<IMovieGenre[]>
+  video$!:Observable<IVideo[]>
 
   listOfSelectedSounder: string[] = []
   listOfSelectedCategory: string[] = []
@@ -174,6 +179,7 @@ export class MovieDetailComponent {
 
   constructor(
     private _modelSrv: MovieService,
+    private _videoSrv: VideosService,
     private _countrySrv: CountryService,
     private _yearSrv: YearService,
     private _categorySrv: CategoryService,
@@ -200,6 +206,7 @@ export class MovieDetailComponent {
     
     if (this.id) {
       this._modelSrv.getByIdMovie(this.id).subscribe((movie) => {
+        this.movie = movie
         this.form.patchValue({
           ...movie, 
           categoryId: movie?.category?.map(item => item.id),
@@ -239,13 +246,13 @@ export class MovieDetailComponent {
     }
 
     this.form = new FormGroup({
-      video: new FormControl('', [(this.movie_type != MovieType.serial) ? Validators.required : Validators.minLength(0)]),
+      // video: new FormControl('', [(this.movie_type != MovieType.serial) ? Validators.required : Validators.minLength(0)]),
       duration: new FormControl(60, [(this.movie_type != MovieType.serial) ? (Validators.required, Validators.min(0)) : Validators.min(0)]),
 
-      treyler: new FormControl('', [Validators.required]),
+      // treyler: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
       descr: new FormControl('', [Validators.required]),
-      quality: new FormControl(Quality.hd_720, [Validators.required]),
+      // quality: new FormControl(Quality.hd_720, [Validators.required]),
       min_age: new FormControl(18, [Validators.required, Validators.min(0), Validators.max(100)]),
       language: new FormControl("O'zbek", [Validators.required]),
       status_type: new FormControl(StatusType.free, [Validators.required]),
@@ -253,10 +260,12 @@ export class MovieDetailComponent {
 
       country_id: new FormControl('', [Validators.required]),
       year_id: new FormControl('', [Validators.required]),
-
+      
       sounderId: new FormControl('', [Validators.required]),
       categoryId: new FormControl('', [Validators.required]),
       movieGenreId: new FormControl('', [Validators.required]),
+      
+      video_id: new FormControl('', [Validators.required]),
     });
 
     this.country$ = this._countrySrv.getAll()
@@ -264,6 +273,7 @@ export class MovieDetailComponent {
     this.category$ = this._categorySrv.getAll()
     this.movie_genre$ = this._movieGenreSrv.getAll()
     this.sounder$ = this._sounderSrv.getAll()
+    this.video$ = this._videoSrv.getAll()
   }
 
   submit() {    
@@ -274,6 +284,7 @@ export class MovieDetailComponent {
       } else {
         this.create();
       }
+      this._videoSrv.loadAll()
     } else {
       Object.values(this.form.controls).forEach((control) => {
         if (control.invalid) {
