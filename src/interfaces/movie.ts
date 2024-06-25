@@ -39,3 +39,13 @@ export interface IMovie{
     parent_movie?:IMovie
     childen_movie?:IMovie[]
 }   
+
+export interface IVideo{
+    id: string
+    folder_name: string
+    file_name: string
+    format: number[]
+    used: boolean
+    created_at: Date
+    updated_at: Date
+}   

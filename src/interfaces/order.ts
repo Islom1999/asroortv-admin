@@ -37,4 +37,4 @@ export interface ITransaction{
   status: TransactionStatus
   created_at: Date;
   updated_at: Date;
-}   
+}
