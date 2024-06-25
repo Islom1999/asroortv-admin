@@ -43,7 +43,6 @@
             ],
             "styles": [
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "styles.scss",
               "src/theme.less",
               "src/styles.scss"
             ],
