@@ -26,6 +26,9 @@ registerLocaleData(en);
 
     AppRoutingModule,
     FormsModule,
+
+    // VgCoreModule,
+    // VgControlsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

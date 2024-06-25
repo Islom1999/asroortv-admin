@@ -24,9 +24,8 @@
     </nz-upload>
 
     <div class="container">
-        <a [routerLink]="['/video']" nzType="default" nz-button nzSize="large" nzType="default" >
+        <button (click)="back()" nzType="default" nz-button nzSize="large" nzType="default" [disabled]="uploading || processing" >
             Ortga
-        </a>
+        </button>
     </div>
-    
 </div>

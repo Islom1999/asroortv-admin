@@ -79,6 +79,13 @@ export class VideosDetailComponent {
         }
     }, 500);
 
+    setTimeout(() => {
+      this.router.navigate(['video'])
+      this.videoUploadService.loadAll()
+    },1000)
+  }
+
+  back(){
     this.router.navigate(['video'])
   }
 }

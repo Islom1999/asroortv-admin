@@ -19,7 +19,7 @@ export class VideosService extends BaseApiService<IVideo>{
 
     const req = new HttpRequest('POST', `${environment.apiUrl}/video-stream/upload`, formData, {
       reportProgress: true
-    });
+    })
 
     return this.http.request(req)
   }

@@ -8,6 +8,7 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { PermissionService } from '../../../../shared/services/permission.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { VideosService } from '../../service/videos.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-videos-list',
@@ -63,4 +64,9 @@ export class VideosListComponent extends BaseComponentList<IVideo> {
       )
     );
   }
+
+  // formatDate(date: Date): string {
+  //   const formattedDate = formatDate(date, 'dd.MM.yyyy HH:mm:ss', 'en-US', '+0500');
+  //   return formattedDate;
+  // }
 }
