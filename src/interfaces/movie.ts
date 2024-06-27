@@ -51,6 +51,8 @@ export interface IVideo{
     folder_name: string
     file_name: string
     format: number[]
+    default_format: string
+    file_size: number
     used: boolean
     created_at: Date
     updated_at: Date

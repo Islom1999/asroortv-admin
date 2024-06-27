@@ -24,7 +24,9 @@
                         </button>
                     </nz-filter-trigger>
                 </th>
-                <th>Formatlar</th>
+                <th>Yuklangan format</th>
+                <th>Yuklangan hajm</th>
+                <th>O'girilgan formatlar</th>
                 <th>Holat</th>
                 <th>Yuklangan sana</th>
                 <th>Boshqaruv</th>
@@ -34,6 +36,8 @@
             <tr *ngFor="let data of basicTable.data; index as i">
                 <td>{{ i+1 }}</td>
                 <td>{{ data.file_name }}</td>
+                <td>{{ data.default_format ? data.default_format : "-----"}}</td>
+                <td>{{ data.file_size ? data.file_size + 'mb' : "-----"}}</td>
                 <td>{{ data.format | json}}</td>
                 <td>{{ data.used ? 'Astive' : 'NoActive' }}</td>
                 <td>{{ data.created_at | date: 'dd.MM.yyyy' }}</td>

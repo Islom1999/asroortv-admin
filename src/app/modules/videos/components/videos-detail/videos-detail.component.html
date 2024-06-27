@@ -1,6 +1,12 @@
 <div>
     <h2>Video Yuklash</h2>
-    <nz-upload [nzBeforeUpload]="beforeUpload" nzShowUploadList="false" nzType="drag" [nzDisabled]="uploading || processing">
+    <nz-upload 
+        [nzBeforeUpload]="beforeUpload" 
+        [nzShowUploadList]="false" 
+        nzType="drag" 
+        [nzDisabled]="uploading || processing" 
+        [nzMultiple]="false"
+    >
         <ng-container *ngIf="!uploading && !processing">
             <p class="ant-upload-drag-icon">
                 <span nz-icon nzType="inbox"></span>

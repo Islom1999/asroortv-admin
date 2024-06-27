@@ -27,6 +27,7 @@
     <div>
       <label for="formatSelect">Select Format:</label>
       <select id="formatSelect" (change)="onFormatChange($event)">
+        <option [value]="0" selected>{{"default" }}</option>
         <option *ngFor="let format of (video$ | async)?.format" [value]="format">{{ format }}p</option>
       </select>
     </div>

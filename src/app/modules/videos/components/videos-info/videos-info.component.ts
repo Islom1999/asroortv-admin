@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class VideosInfoComponent implements OnInit {
   video$!: Observable<IVideo>;
   baseUrl = environment.apiUrl;
-  selectedFormat: number = 720;
+  selectedFormat: number = 0;
   startTime: number = 0;
   videoData!: IVideo;
 
@@ -32,7 +32,8 @@ export class VideosInfoComponent implements OnInit {
     this.video$ = this._videoSrv.getById(this.id);
     this.video$.subscribe(video => {
       this.videoData = video;
-      this.selectedFormat = video.format[0]; // Set initial format to the first format available
+      // this.selectedFormat = video.format[0]; // Set initial format to the first format available
+      this.selectedFormat = 0; // Set initial format to the first format available
       this.updateVideoSrc(); // Update the video source when the data is loaded
     });
   }
