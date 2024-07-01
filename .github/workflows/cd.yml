@@ -5,9 +5,9 @@ on:
     branches: [ master ]
 
 env:
-  SERVER_HOST: 91.200.151.163
+  SERVER_HOST: 185.80.234.243
   SERVER_USERNAME: root
-  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_PASSWORD }}
 
 
 jobs: 
@@ -21,11 +21,11 @@ jobs:
       with:
         host: ${{ env.SERVER_HOST }}
         username: ${{ env.SERVER_USERNAME }}
-        key: ${{ env.SSH_PRIVATE_KEY }}
+        password: ${{ env.SSH_PRIVATE_KEY }}
+        # key: ${{ env.SSH_PRIVATE_KEY }}
         script: |
-          cd ~/ANIME_TVTIME/asroortv-admin/
+          cd ~/BananaTV/asroortv-admin/
           git pull
           npm install
           ng build
-          sudo rsync -av --delete /root/ANIME_TVTIME/asroortv-admin/dist/anime-admin/ /var/www/anime-admin/
-          
+          sudo rsync -av --delete /root/BananaTV/asroortv-admin/dist/anime-admin/ /var/www/anime-admin/
