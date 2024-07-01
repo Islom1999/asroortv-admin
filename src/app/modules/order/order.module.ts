@@ -8,6 +8,7 @@ import { BaseModule } from '../../shared/modules';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
     NzModalModule,
     NzDrawerModule,
     NzDatePickerModule,
+    NzTagModule,
   ]
 })
 export class OrderModule { }
