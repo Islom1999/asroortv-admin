@@ -59,6 +59,10 @@ const routes: Routes = [
                 path: 'video',
                 loadChildren: () => import('../modules').then((m) => m.VideosModule)
             },
+            {
+                path: '**',
+                redirectTo: '/order'
+            }
         ]
     }
 ];

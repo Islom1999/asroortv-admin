@@ -155,9 +155,7 @@ export class MovieDetailComponent {
     return true
   }
 
-  getImageAllImagesFrame(): string[]{
-    console.log(this.fileListImagesFrame);
-    
+  getImageAllImagesFrame(): string[]{    
     return this.fileListImagesFrame.map((item) => item.response.filename)
   }
 
@@ -247,7 +245,7 @@ export class MovieDetailComponent {
 
     this.form = new FormGroup({
       // video: new FormControl('', [(this.movie_type != MovieType.serial) ? Validators.required : Validators.minLength(0)]),
-      duration: new FormControl(60, [(this.movie_type != MovieType.serial) ? (Validators.required, Validators.min(0)) : Validators.min(0)]),
+      
 
       // treyler: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
@@ -264,9 +262,16 @@ export class MovieDetailComponent {
       sounderId: new FormControl('', [Validators.required]),
       categoryId: new FormControl('', [Validators.required]),
       movieGenreId: new FormControl('', [Validators.required]),
-      
+
       video_id: new FormControl('', [Validators.required]),
+      duration: new FormControl(0, [Validators.required, Validators.min(0)])
     });
+    
+    if (this.movie_type == MovieType.serial) {
+      this.form.removeControl('video_id');
+      this.form.removeControl('duration');
+    }
+    
 
     this.country$ = this._countrySrv.getAll()
     this.year$ = this._yearSrv.getAll()
@@ -301,7 +306,7 @@ export class MovieDetailComponent {
         .createMovie({
           ...this.form.value, 
           images: this.getImageAllImages(), 
-          frame_images: this.getImageAllImagesFrame()
+          frame_images: this.getImageAllImagesFrame(),
         })
         .pipe(
           catchError(({ error }) => {
