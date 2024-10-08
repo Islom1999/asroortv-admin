@@ -58,9 +58,10 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
       switchMap((item) =>
         of(
           item.filter((user) =>
+            user?.name ?
             user.name
               .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
+              .includes(this.searchValue.toLocaleLowerCase()) : false
           )
         )
       )
