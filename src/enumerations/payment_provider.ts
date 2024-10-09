@@ -1,5 +1,6 @@
 export enum PaymentProvider {
     payme = "payme",
     uzum = "uzum",
-    click = "click"
+    click = "click",
+    paynet = "paynet",
 }

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { IAdmin } from '../../../../../interfaces';
+import { IAdmin, IPlan } from '../../../../../interfaces';
 import { PromoService } from '../../service/promo.service';
 import { UserAdminService } from '../../../user-admin/service/user-admin.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Observable, of, catchError } from 'rxjs';
+import { Observable, of, catchError, count } from 'rxjs';
 import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
+import { PlanService } from '../../../plan/service/plan.service';
 
 @Component({
   selector: 'app-promo-detail',
@@ -16,6 +17,7 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 })
 export class PromoDetailComponent {
   admin$: Observable<IAdmin[]> = of([]);
+  plans$: Observable<IPlan[]> = of([]);
   loading = true;
   disableBtn = true;
 
@@ -34,6 +36,7 @@ export class PromoDetailComponent {
   constructor(
     private _promoSrv: PromoService,
     private _adminSrv: UserAdminService,
+    private _planSrv: PlanService,
     private nzMessageService: NzMessageService,
     private router: Router,
     private route: ActivatedRoute,
@@ -51,9 +54,11 @@ export class PromoDetailComponent {
 
     this.form = new FormGroup({
       code: new FormControl('', [Validators.required]),
-      discount: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(50)]),
+      discount: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(100)]),
+      count: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(1000)]),
       is_active: new FormControl('', [Validators.required]),
       admin_id: new FormControl('', [Validators.required]),
+      plan_id: new FormControl(null, []),
     });
     if (this.id) {
       this._promoSrv.getById(this.id).subscribe((promo) => {
@@ -67,6 +72,7 @@ export class PromoDetailComponent {
     }
 
     this.admin$ = this._adminSrv.getAll()
+    this.plans$ = this._planSrv.getAll()
   }
 
   submit() {

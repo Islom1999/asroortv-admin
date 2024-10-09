@@ -64,7 +64,9 @@
         <tbody>
             <tr *ngFor="let data of (order?.transactions || []); index as i">
                 <td>{{ data.trans_id }}</td>
-                <td>{{ data.provider }}</td>
+                <td>
+                    <nz-tag [nzColor]="'#87d068'">{{ data.provider.toLocaleUpperCase() }}</nz-tag>
+                </td>
                 <td>{{ data.amount / 100 }}</td>
                 <td>
                     <nz-tag [nzColor]="data.status == 'PAID' ? '#87d068': '#f50'">{{ data.status }}</nz-tag>

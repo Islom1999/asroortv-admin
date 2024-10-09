@@ -10,9 +10,16 @@
             </nz-form-item>
 
             <nz-form-item>
-                <nz-form-label [nzSpan]="7" nzRequired>Discount (0-50%)</nz-form-label>
+                <nz-form-label [nzSpan]="7" nzRequired>Chegirma (0-100%)</nz-form-label>
                 <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." nzErrorTip="Please input">
                     <input type="number" nz-input placeholder="discount" formControlName="discount" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="7" nzRequired>Soni (0-1000)</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." nzErrorTip="Please input">
+                    <input type="number" nz-input placeholder="count" formControlName="count" />
                 </nz-form-control>
             </nz-form-item>
 
@@ -21,6 +28,16 @@
                 <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input">
                     <nz-select [nzMaxTagCount]="3" nzPlaceHolder="Admin" formControlName="admin_id">
                         <nz-option *ngFor="let role of admin$ | async" [nzLabel]="role.name"
+                            [nzValue]="role.id"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="7" nzRequired>Tarif</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input">
+                    <nz-select [nzMaxTagCount]="3" nzPlaceHolder="Tarif" formControlName="plan_id">
+                        <nz-option *ngFor="let role of plans$ | async" [nzLabel]="role.name"
                             [nzValue]="role.id"></nz-option>
                     </nz-select>
                 </nz-form-control>

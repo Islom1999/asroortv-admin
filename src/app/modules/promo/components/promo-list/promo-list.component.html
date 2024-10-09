@@ -25,6 +25,9 @@
                     </nz-filter-trigger>
                 </th>
                 <th>Chegirma</th>
+                <th>Soni</th>
+                <th>Tarif</th>
+                <th>Admin</th>
                 <th>Status</th>
                 <th>Boshqaruv</th>
             </tr>
@@ -34,7 +37,10 @@
                 <td>{{ i+1 }}</td>
                 <td>{{ data.code }}</td>
                 <td>{{ data.discount}}%</td>
-                <td>{{ data.is_active ? 'Astive' : 'NoActive' }}</td>
+                <td>{{ data.count }} ta</td>
+                <td>{{ data?.plan?.name || 'hammasi' }}</td>
+                <td>{{ data?.admin?.name || 'yo\'q' }}</td>
+                <td>{{ data.is_active ? 'Active' : 'NoActive' }}</td>
                 <td>
                     <nz-button-group>
                         <button nzType="default" nz-button nzSize="large" nz-popconfirm
