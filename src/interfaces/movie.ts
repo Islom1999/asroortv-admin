@@ -5,7 +5,7 @@ import { IMovieGenre } from "./movie_genre";
 import { ISounder } from "./sounder";
 import { IYear } from "./year";
 
-export interface IMovie{
+export interface IMovie {
     id?: string;
     video: string;
     treyler: string;
@@ -36,24 +36,42 @@ export interface IMovie{
     category?: ICategory[];
     movie_genre?: IMovieGenre[];
 
-    parent_movie?:IMovie
-    childen_movie?:IMovie[]
+    parent_movie?: IMovie
+    childen_movie?: IMovie[]
 
     video_id: string;
     format: number[];
     video_type: string;
 
     video_file?: IVideo;
-}   
+}
 
-export interface IVideo{
+export interface IVideo {
     id: string
     folder_name: string
+    used: boolean
+    is_transferred: boolean
+    server_id: string
     file_name: string
-    format: number[]
     default_format: string
     file_size: number
-    used: boolean
-    created_at: Date
-    updated_at: Date
-}   
+    is_format: boolean
+    is_stream_ready: boolean
+    properties: any
+    format: number[]
+    created_at: string
+    updated_at: string
+    server: IServer
+}
+
+export interface IServer {
+    id: string
+    ip_address: string
+    username: string
+    domain: string
+    name: string
+    description: string
+    is_active: boolean
+    created_at: string
+    updated_at: string
+}

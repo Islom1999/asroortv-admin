@@ -7,7 +7,7 @@
         (timeupdate)="onTimeUpdate($event)"
       >
         <source
-          [src]="baseUrl + '/video-stream/watch/' + vid.file_name + '?resolution=' + selectedFormat + '&start=' + startTime"
+          [src]="'https://' + vid.server.domain + '/api/video-stream/web/watch/by-id/' + vid.id + '?resolution=' + selectedFormat"
           type="video/mp4"
         />
         Your browser does not support the video tag.

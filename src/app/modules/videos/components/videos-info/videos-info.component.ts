@@ -26,7 +26,7 @@ export class VideosInfoComponent implements OnInit {
   constructor(
     private _videoSrv: VideosService,
     private route: ActivatedRoute,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.video$ = this._videoSrv.getById(this.id);
@@ -52,9 +52,9 @@ export class VideosInfoComponent implements OnInit {
   updateVideoSrc(): void {
     const videoElement = this.videoPlayer?.nativeElement;
     if (videoElement && this.videoData) {
-      videoElement.src = `${this.baseUrl}/video-stream/watch/${this.videoData.file_name}?resolution=${this.selectedFormat}&start=${this.startTime}`;
+      videoElement.src = `https://${this.videoData.server.domain}/api/video-stream/web/watch/by-id/${this.videoData.id}?resolution=${this.selectedFormat}&start=${this.startTime}`;
       videoElement.load();
-      videoElement.play();      
+      videoElement.play();
     }
   }
 }
