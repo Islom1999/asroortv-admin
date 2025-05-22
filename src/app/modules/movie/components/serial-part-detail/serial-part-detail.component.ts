@@ -12,9 +12,10 @@ import { MovieInfoComponent } from '../movie-info/movie-info.component';
 import { MovieType } from '../../../../../enumerations';
 
 @Component({
-  selector: 'app-serial-part-detail',
-  templateUrl: './serial-part-detail.component.html',
-  styleUrl: './serial-part-detail.component.scss'
+    selector: 'app-serial-part-detail',
+    templateUrl: './serial-part-detail.component.html',
+    styleUrl: './serial-part-detail.component.scss',
+    standalone: false
 })
 export class SerialPartDetailComponent implements OnInit {
   @Input()

@@ -12,9 +12,10 @@ import { MovieInfoComponent } from '../movie-info/movie-info.component';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
-  selector: 'app-movie-list',
-  templateUrl: './movie-list.component.html',
-  styleUrl: './movie-list.component.scss'
+    selector: 'app-movie-list',
+    templateUrl: './movie-list.component.html',
+    styleUrl: './movie-list.component.scss',
+    standalone: false
 })
 export class MovieListComponent implements OnInit {
   movies$: Observable<IMovie[]> = this._baseSrv._data.pipe()

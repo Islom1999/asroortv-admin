@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-videos-detail',
-  templateUrl: './videos-detail.component.html',
-  styleUrl: './videos-detail.component.scss'
+    selector: 'app-videos-detail',
+    templateUrl: './videos-detail.component.html',
+    styleUrl: './videos-detail.component.scss',
+    standalone: false
 })
 export class VideosDetailComponent {
   uploadProgress: number = 0;

@@ -14,9 +14,10 @@ import { StatusType } from '../../../../../enumerations';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
-  selector: 'app-user-client-list',
-  templateUrl: './user-client-list.component.html',
-  styleUrl: './user-client-list.component.scss'
+    selector: 'app-user-client-list',
+    templateUrl: './user-client-list.component.html',
+    styleUrl: './user-client-list.component.scss',
+    standalone: false
 })
 export class UserClientListComponent extends BaseComponentList<IUser> {
   users$: Observable<IUser[]> = of([]);

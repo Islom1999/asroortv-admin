@@ -11,9 +11,10 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { PlanService } from '../../../plan/service/plan.service';
 
 @Component({
-  selector: 'app-promo-detail',
-  templateUrl: './promo-detail.component.html',
-  styleUrl: './promo-detail.component.scss'
+    selector: 'app-promo-detail',
+    templateUrl: './promo-detail.component.html',
+    styleUrl: './promo-detail.component.scss',
+    standalone: false
 })
 export class PromoDetailComponent {
   admin$: Observable<IAdmin[]> = of([]);

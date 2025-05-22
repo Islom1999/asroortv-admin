@@ -10,9 +10,10 @@ import { PermissionService } from '../../../../shared/services/permission.servic
 import { YearService } from '../../service/year.service';
 
 @Component({
-  selector: 'app-year-list',
-  templateUrl: './year-list.component.html',
-  styleUrl: './year-list.component.scss'
+    selector: 'app-year-list',
+    templateUrl: './year-list.component.html',
+    styleUrl: './year-list.component.scss',
+    standalone: false
 })
 export class YearListComponent extends BaseComponentList<IYear> {
   years$: Observable<IYear[]> = of([]);

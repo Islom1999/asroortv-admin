@@ -10,7 +10,8 @@ import { BreadcrumbsService } from '../../shared/services/breadcrumbs.service';
 import { PermissionService } from '../../shared/services/permission.service';
 
 @Component({
-  template:''
+    template: '',
+    standalone: false
 })
 export abstract class BaseComponentList<T> implements OnInit {
   loading = false

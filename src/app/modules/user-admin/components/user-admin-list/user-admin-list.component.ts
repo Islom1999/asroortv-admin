@@ -10,9 +10,10 @@ import { UserAdminService } from '../../service/user-admin.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 
 @Component({
-  selector: 'app-user-admin-list',
-  templateUrl: './user-admin-list.component.html',
-  styleUrl: './user-admin-list.component.scss'
+    selector: 'app-user-admin-list',
+    templateUrl: './user-admin-list.component.html',
+    styleUrl: './user-admin-list.component.scss',
+    standalone: false
 })
 export class UserAdminListComponent extends BaseComponentList<IAdmin> {
   admins$: Observable<IAdmin[]> = of([]);

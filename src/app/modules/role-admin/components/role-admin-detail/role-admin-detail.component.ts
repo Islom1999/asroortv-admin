@@ -9,9 +9,10 @@ import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 
 @Component({
-  selector: 'app-role-admin-detail',
-  templateUrl: './role-admin-detail.component.html',
-  styleUrl: './role-admin-detail.component.scss'
+    selector: 'app-role-admin-detail',
+    templateUrl: './role-admin-detail.component.html',
+    styleUrl: './role-admin-detail.component.scss',
+    standalone: false
 })
 export class RoleAdminDetailComponent implements OnInit {
   permissionsTypes: Permission[] = Object.values(Permission);

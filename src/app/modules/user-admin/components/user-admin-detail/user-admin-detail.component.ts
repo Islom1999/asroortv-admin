@@ -10,9 +10,10 @@ import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 
 @Component({
-  selector: 'app-user-admin-detail',
-  templateUrl: './user-admin-detail.component.html',
-  styleUrl: './user-admin-detail.component.scss'
+    selector: 'app-user-admin-detail',
+    templateUrl: './user-admin-detail.component.html',
+    styleUrl: './user-admin-detail.component.scss',
+    standalone: false
 })
 export class UserAdminDetailComponent {
   role$: Observable<IRole[]> = of([]);

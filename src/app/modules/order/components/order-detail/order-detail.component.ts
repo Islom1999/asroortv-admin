@@ -3,9 +3,10 @@ import { IOrder } from '../../../../../interfaces/order';
 import { OrderService } from '../../service/order.service';
 
 @Component({
-  selector: 'app-order-detail',
-  templateUrl: './order-detail.component.html',
-  styleUrl: './order-detail.component.scss'
+    selector: 'app-order-detail',
+    templateUrl: './order-detail.component.html',
+    styleUrl: './order-detail.component.scss',
+    standalone: false
 })
 export class OrderDetailComponent{
   @Input()

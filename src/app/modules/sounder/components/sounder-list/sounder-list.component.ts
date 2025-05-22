@@ -10,9 +10,10 @@ import { PermissionService } from '../../../../shared/services/permission.servic
 import { SounderService } from '../../service/sounder.service';
 
 @Component({
-  selector: 'app-sounder-list',
-  templateUrl: './sounder-list.component.html',
-  styleUrl: './sounder-list.component.scss'
+    selector: 'app-sounder-list',
+    templateUrl: './sounder-list.component.html',
+    styleUrl: './sounder-list.component.scss',
+    standalone: false
 })
 export class SounderListComponent extends BaseComponentList<ISounder> {
   sounders$: Observable<ISounder[]> = of([]);

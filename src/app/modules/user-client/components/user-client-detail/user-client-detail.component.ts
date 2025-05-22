@@ -7,9 +7,10 @@ import { RoleType, StatusType } from '../../../../../enumerations';
 import { UserClientService } from '../../service/user-client.service';
 
 @Component({
-  selector: 'app-user-client-detail',
-  templateUrl: './user-client-detail.component.html',
-  styleUrl: './user-client-detail.component.scss'
+    selector: 'app-user-client-detail',
+    templateUrl: './user-client-detail.component.html',
+    styleUrl: './user-client-detail.component.scss',
+    standalone: false
 })
 export class UserClientDetailComponent {
   @Input()

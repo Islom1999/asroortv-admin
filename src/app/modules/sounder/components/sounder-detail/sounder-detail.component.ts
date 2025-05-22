@@ -8,9 +8,10 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { SounderService } from '../../service/sounder.service';
 
 @Component({
-  selector: 'app-sounder-detail',
-  templateUrl: './sounder-detail.component.html',
-  styleUrl: './sounder-detail.component.scss'
+    selector: 'app-sounder-detail',
+    templateUrl: './sounder-detail.component.html',
+    styleUrl: './sounder-detail.component.scss',
+    standalone: false
 })
 export class SounderDetailComponent {
   loading = true;

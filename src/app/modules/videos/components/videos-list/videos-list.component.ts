@@ -13,7 +13,8 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-videos-list',
   templateUrl: './videos-list.component.html',
-  styleUrl: './videos-list.component.scss'
+  styleUrl: './videos-list.component.scss',
+  standalone: false
 })
 export class VideosListComponent extends BaseComponentList<IVideo> {
   videos$: Observable<IVideo[]> = of([]);
@@ -23,8 +24,8 @@ export class VideosListComponent extends BaseComponentList<IVideo> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Videolar", 
-    label: "Videolar ro'yhati", 
+    header: "Videolar",
+    label: "Videolar ro'yhati",
     url: '/'
   };
 
@@ -33,8 +34,8 @@ export class VideosListComponent extends BaseComponentList<IVideo> {
     private _nzMessageService: NzMessageService,
     private _breadcrumbService: BreadcrumbsService,
     private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,  
-  ){
+    private _permissionSrv: NgxPermissionsService,
+  ) {
     super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
   }
 
@@ -42,7 +43,7 @@ export class VideosListComponent extends BaseComponentList<IVideo> {
     super.ngOnInit();
     this.videos$ = this.data$;
   }
-  
+
   // Search reset function
   reset(): void {
     this.searchValue = '';

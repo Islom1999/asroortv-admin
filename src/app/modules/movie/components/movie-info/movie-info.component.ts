@@ -8,9 +8,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { MovieType } from '../../../../../enumerations';
 
 @Component({
-  selector: 'app-movie-info',
-  templateUrl: './movie-info.component.html',
-  styleUrl: './movie-info.component.scss'
+    selector: 'app-movie-info',
+    templateUrl: './movie-info.component.html',
+    styleUrl: './movie-info.component.scss',
+    standalone: false
 })
 export class MovieInfoComponent implements OnInit {
   @Input()

@@ -8,9 +8,10 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { MovieGenreService } from '../../service/movie-genre.service';
 
 @Component({
-  selector: 'app-movie-genre-detail',
-  templateUrl: './movie-genre-detail.component.html',
-  styleUrl: './movie-genre-detail.component.scss'
+    selector: 'app-movie-genre-detail',
+    templateUrl: './movie-genre-detail.component.html',
+    styleUrl: './movie-genre-detail.component.scss',
+    standalone: false
 })
 export class MovieGenreDetailComponent {
   loading = true;

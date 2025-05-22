@@ -11,9 +11,10 @@ import { PlanService } from '../../service/plan.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 
 @Component({
-  selector: 'app-plan-list',
-  templateUrl: './plan-list.component.html',
-  styleUrl: './plan-list.component.scss'
+    selector: 'app-plan-list',
+    templateUrl: './plan-list.component.html',
+    styleUrl: './plan-list.component.scss',
+    standalone: false
 })
 export class PlanListComponent extends BaseComponentList<IPlan> implements OnInit {
   plans$: Observable<IPlan[]> = of([]);

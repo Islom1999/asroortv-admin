@@ -10,9 +10,10 @@ import { PermissionService } from '../../../../shared/services/permission.servic
 import { PromoService } from '../../service/promo.service';
 
 @Component({
-  selector: 'app-promo-list',
-  templateUrl: './promo-list.component.html',
-  styleUrl: './promo-list.component.scss'
+    selector: 'app-promo-list',
+    templateUrl: './promo-list.component.html',
+    styleUrl: './promo-list.component.scss',
+    standalone: false
 })
 export class PromoListComponent extends BaseComponentList<IPromo> {
   promos$: Observable<IPromo[]> = of([]);

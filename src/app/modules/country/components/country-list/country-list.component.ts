@@ -10,9 +10,10 @@ import { PermissionService } from '../../../../shared/services/permission.servic
 import { CountryService } from '../../service/country.service';
 
 @Component({
-  selector: 'app-country-list',
-  templateUrl: './country-list.component.html',
-  styleUrl: './country-list.component.scss'
+    selector: 'app-country-list',
+    templateUrl: './country-list.component.html',
+    styleUrl: './country-list.component.scss',
+    standalone: false
 })
 export class CountryListComponent extends BaseComponentList<ICountry> {
   countrys$: Observable<ICountry[]> = of([]);

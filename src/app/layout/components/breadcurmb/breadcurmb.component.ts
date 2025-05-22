@@ -4,9 +4,10 @@ import { BreadcrumbsService } from '../../../shared/services/breadcrumbs.service
 
 
 @Component({
-  selector: 'breadcrumb',
-  templateUrl: './breadcurmb.component.html',
-  styleUrls: ['./breadcurmb.component.scss']
+    selector: 'breadcrumb',
+    templateUrl: './breadcurmb.component.html',
+    styleUrls: ['./breadcurmb.component.scss'],
+    standalone: false
 })
 export class BreadcurmbComponent implements OnInit , OnDestroy {
   private langSub!: Subscription;

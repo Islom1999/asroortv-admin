@@ -10,9 +10,10 @@ import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+    selector: 'app-auth',
+    templateUrl: './auth.component.html',
+    styleUrls: ['./auth.component.scss'],
+    standalone: false
 })
 export class AuthComponent {
   validateForm: FormGroup<{

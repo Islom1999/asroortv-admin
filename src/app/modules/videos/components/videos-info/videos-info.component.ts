@@ -6,9 +6,10 @@ import { environment } from '../../../../../environments/environment';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-videos-info',
-  templateUrl: './videos-info.component.html',
-  styleUrl: './videos-info.component.scss'
+    selector: 'app-videos-info',
+    templateUrl: './videos-info.component.html',
+    styleUrl: './videos-info.component.scss',
+    standalone: false
 })
 export class VideosInfoComponent implements OnInit {
   video$!: Observable<IVideo>;

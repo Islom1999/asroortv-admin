@@ -40,9 +40,10 @@ const getBase64 = (file: File) => {
 }
 
 @Component({
-  selector: 'app-movie-detail',
-  templateUrl: './movie-detail.component.html',
-  styleUrl: './movie-detail.component.scss'
+    selector: 'app-movie-detail',
+    templateUrl: './movie-detail.component.html',
+    styleUrl: './movie-detail.component.scss',
+    standalone: false
 })
 export class MovieDetailComponent {
   public Editor = ClassicEditor;

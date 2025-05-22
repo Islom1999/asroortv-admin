@@ -4,9 +4,10 @@ import { AuthService } from '../auth/auth.service';
 import { PermissionService } from '../shared/services/permission.service';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrl: './layout.component.scss',
+    standalone: false
 })
 export class LayoutComponent {
   isCollapsed = false;

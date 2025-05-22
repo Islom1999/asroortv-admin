@@ -10,9 +10,10 @@ import { Breadcrumb } from '../../../../../types/breadcrump';
 import { Observable, of, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-role-admin-list',
-  templateUrl: './role-admin-list.component.html',
-  styleUrl: './role-admin-list.component.scss'
+    selector: 'app-role-admin-list',
+    templateUrl: './role-admin-list.component.html',
+    styleUrl: './role-admin-list.component.scss',
+    standalone: false
 })
 export class RoleAdminListComponent extends BaseComponentList<IRole> {
   roles$: Observable<IRole[]> = of([]);

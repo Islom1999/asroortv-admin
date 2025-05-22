@@ -10,9 +10,10 @@ import { PermissionService } from '../../../../shared/services/permission.servic
 import { CategoryService } from '../../service/category.service';
 
 @Component({
-  selector: 'app-category-list',
-  templateUrl: './category-list.component.html',
-  styleUrl: './category-list.component.scss'
+    selector: 'app-category-list',
+    templateUrl: './category-list.component.html',
+    styleUrl: './category-list.component.scss',
+    standalone: false
 })
 export class CategoryListComponent extends BaseComponentList<ICategory> {
   categorys$: Observable<ICategory[]> = of([]);

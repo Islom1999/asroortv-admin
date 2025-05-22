@@ -8,9 +8,10 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { CategoryService } from '../../service/category.service';
 
 @Component({
-  selector: 'app-category-detail',
-  templateUrl: './category-detail.component.html',
-  styleUrl: './category-detail.component.scss'
+    selector: 'app-category-detail',
+    templateUrl: './category-detail.component.html',
+    styleUrl: './category-detail.component.scss',
+    standalone: false
 })
 export class CategoryDetailComponent {
   loading = true;

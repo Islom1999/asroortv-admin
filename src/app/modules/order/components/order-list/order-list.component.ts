@@ -14,9 +14,10 @@ import { PaymentProvider } from '../../../../../enumerations';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
-  selector: 'app-order-list',
-  templateUrl: './order-list.component.html',
-  styleUrl: './order-list.component.scss'
+    selector: 'app-order-list',
+    templateUrl: './order-list.component.html',
+    styleUrl: './order-list.component.scss',
+    standalone: false
 })
 export class OrderListComponent extends BaseComponentList<IOrder> {
   orders$: Observable<IOrder[]> = of([]);

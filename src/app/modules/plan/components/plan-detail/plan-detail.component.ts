@@ -9,9 +9,10 @@ import { UserAdminService } from '../../../user-admin/service/user-admin.service
 import { PlanService } from '../../service/plan.service';
 
 @Component({
-  selector: 'app-plan-detail',
-  templateUrl: './plan-detail.component.html',
-  styleUrl: './plan-detail.component.scss'
+    selector: 'app-plan-detail',
+    templateUrl: './plan-detail.component.html',
+    styleUrl: './plan-detail.component.scss',
+    standalone: false
 })
 export class PlanDetailComponent {
   loading = true;

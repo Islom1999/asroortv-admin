@@ -10,9 +10,10 @@ import { PermissionService } from '../../../../shared/services/permission.servic
 import { MovieGenreService } from '../../service/movie-genre.service';
 
 @Component({
-  selector: 'app-movie-genre-list',
-  templateUrl: './movie-genre-list.component.html',
-  styleUrl: './movie-genre-list.component.scss'
+    selector: 'app-movie-genre-list',
+    templateUrl: './movie-genre-list.component.html',
+    styleUrl: './movie-genre-list.component.scss',
+    standalone: false
 })
 export class MovieGenreListComponent extends BaseComponentList<IMovieGenre> {
   movie_genres$: Observable<IMovieGenre[]> = of([]);
