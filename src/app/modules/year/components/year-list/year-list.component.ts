@@ -8,12 +8,13 @@ import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 import { PermissionService } from '../../../../shared/services/permission.service';
 import { YearService } from '../../service/year.service';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-year-list',
-    templateUrl: './year-list.component.html',
-    styleUrl: './year-list.component.scss',
-    standalone: false
+  selector: 'app-year-list',
+  templateUrl: './year-list.component.html',
+  styleUrl: './year-list.component.scss',
+  standalone: false
 })
 export class YearListComponent extends BaseComponentList<IYear> {
   years$: Observable<IYear[]> = of([]);
@@ -23,8 +24,8 @@ export class YearListComponent extends BaseComponentList<IYear> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Yearlar", 
-    label: "Yearlar ro'yhati", 
+    header: "Yearlar",
+    label: "Yearlar ro'yhati",
     url: '/user-year'
   };
 
@@ -33,16 +34,21 @@ export class YearListComponent extends BaseComponentList<IYear> {
     private _nzMessageService: NzMessageService,
     private _breadcrumbService: BreadcrumbsService,
     private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,  
-  ){
+    private _permissionSrv: NgxPermissionsService,
+    private router: Router
+  ) {
     super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
   }
+
+  columns = [
+    { title: 'Nomi', key: 'year' },
+  ];
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.years$ = this.data$;
   }
-  
+
   // Search reset function
   reset(): void {
     this.searchValue = '';
@@ -64,5 +70,11 @@ export class YearListComponent extends BaseComponentList<IYear> {
         )
       )
     );
+  }
+
+  edit(id: string) {
+    if (id) {
+      this.router.navigate(['/year', 'update', id]);
+    }
   }
 }

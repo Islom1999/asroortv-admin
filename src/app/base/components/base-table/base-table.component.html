@@ -1,0 +1,49 @@
+<nz-table
+  [nzScroll]="{ x: 'auto' }"
+  nz-responsive
+  [nzData]="data"
+  [nzLoading]="loading"
+>
+  <thead>
+    <tr>
+      <th nzWidth="50px">No</th>
+      @for(col of columns; track $index){
+        <th>{{ col.title }}</th>
+      }
+      <th>Boshqaruv</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of data; track item.id){
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          @for(col of columns; track $index){
+            <td>
+                {{ item[col.key] }}
+            </td>
+            }
+          <td>
+            <nz-button-group>
+              <button
+                nz-button
+                nzSize="large"
+                nz-popconfirm
+                nzPopconfirmTitle="Ushbu ma'lumotni o'chirmoqchimisiz?"
+                nzPopconfirmPlacement="topRight"
+                (nzOnConfirm)="onDelete.emit(item.id)"
+              >
+                <span nz-icon nzType="delete" nzTheme="outline" style="color: red;"></span>
+              </button>
+              <button
+                nz-button
+                nzSize="large"
+                (click)="onEdit.emit(item.id)"
+              >
+                <span nz-icon nzType="edit" nzTheme="outline" style="color: blue;"></span>
+              </button>
+            </nz-button-group>
+          </td>
+        </tr>
+    }
+  </tbody>
+</nz-table>

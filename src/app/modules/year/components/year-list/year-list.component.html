@@ -9,7 +9,15 @@
     </div>
 </div>
 
-<ng-container>
+<app-base-table
+  [data]="(years$ | async) ?? []"
+  [loading]="(years$ | async) ? false : true"
+  [columns]="columns"
+  (onDelete)="delete($event)"
+  (onEdit)="edit($event)"
+></app-base-table>
+
+<!-- <ng-container>
     <nz-table [nzScroll]="{x: 'auto'}" nz-responsive #basicTable [nzData]="(years$ | async) ?? []"
         [nzLoading]="(years$ | async) ? false : true">
         <thead>
@@ -46,7 +54,7 @@
             </tr>
         </tbody>
     </nz-table>
-</ng-container>
+</ng-container> -->
 
 <nz-dropdown-menu #menu="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">

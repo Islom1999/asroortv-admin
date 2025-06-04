@@ -5,6 +5,7 @@ import { YearListComponent } from './components/year-list/year-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseModule } from '../../shared/modules';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
+    BaseTableComponent
   ]
 })
 export class YearModule { }
