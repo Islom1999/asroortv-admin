@@ -2,18 +2,16 @@ import { Component } from '@angular/core';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { ICountry } from '../../../../../interfaces/country';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { Observable, of, switchMap } from 'rxjs';
 import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../../../shared/services/permission.service';
 import { CountryService } from '../../service/country.service';
 
 @Component({
-    selector: 'app-country-list',
-    templateUrl: './country-list.component.html',
-    styleUrl: './country-list.component.scss',
-    standalone: false
+  selector: 'app-country-list',
+  templateUrl: './country-list.component.html',
+  styleUrl: './country-list.component.scss',
+  standalone: false
 })
 export class CountryListComponent extends BaseComponentList<ICountry> {
   countrys$: Observable<ICountry[]> = of([]);
@@ -23,26 +21,23 @@ export class CountryListComponent extends BaseComponentList<ICountry> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Countrylar", 
-    label: "Countrylar ro'yhati", 
+    header: "Countrylar",
+    label: "Countrylar ro'yhati",
     url: '/user-country'
   };
 
   constructor(
     private _baseSrv: CountryService,
-    private _nzMessageService: NzMessageService,
-    private _breadcrumbService: BreadcrumbsService,
-    private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,  
-  ){
-    super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
+
+  ) {
+    super(_baseSrv)
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.countrys$ = this.data$;
   }
-  
+
   // Search reset function
   reset(): void {
     this.searchValue = '';

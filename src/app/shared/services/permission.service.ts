@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Permission } from '../../../enumerations';
 
@@ -12,10 +12,10 @@ export class PermissionService {
 
   private apiUrl = `${environment.apiUrl}/user-admin`;
 
-  constructor(private http: HttpClient) {}
-  
+  constructor(private http: HttpClient) { }
+
   getPermisssion(): Observable<Permission[]> {
     const url = `${this.apiUrl}/permission`;
-    return this.http.get<Permission[]>(url);
+    return this.http.get<Permission[]>(url).pipe(shareReplay(1));
   }
 }

@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { IYear } from '../../../../../interfaces/year';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { Observable, of, switchMap } from 'rxjs';
 import { Breadcrumb } from '../../../../../types/breadcrump';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../../../shared/services/permission.service';
 import { YearService } from '../../service/year.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-year-list',
@@ -17,11 +11,7 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class YearListComponent extends BaseComponentList<IYear> {
-  years$: Observable<IYear[]> = of([]);
-
-  // Serch variables
-  searchValue = '';
-  visible = false;
+  yearFilter!: number
 
   override breadcrumb: Breadcrumb = {
     header: "Yearlar",
@@ -31,13 +21,8 @@ export class YearListComponent extends BaseComponentList<IYear> {
 
   constructor(
     private _baseSrv: YearService,
-    private _nzMessageService: NzMessageService,
-    private _breadcrumbService: BreadcrumbsService,
-    private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,
-    private router: Router
   ) {
-    super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
+    super(_baseSrv)
   }
 
   columns = [
@@ -46,35 +31,10 @@ export class YearListComponent extends BaseComponentList<IYear> {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.years$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
 
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.years$ = this.years$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((year) =>
-            year.year
-              .toString()
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
-  }
-
-  edit(id: string) {
-    if (id) {
-      this.router.navigate(['/year', 'update', id]);
-    }
+  onSearchChange(value: number): void {
+    this.onSearch({ year: value });
   }
 }

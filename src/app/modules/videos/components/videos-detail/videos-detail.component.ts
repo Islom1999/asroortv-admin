@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-videos-detail',
-    templateUrl: './videos-detail.component.html',
-    styleUrl: './videos-detail.component.scss',
-    standalone: false
+  selector: 'app-videos-detail',
+  templateUrl: './videos-detail.component.html',
+  styleUrl: './videos-detail.component.scss',
+  standalone: false
 })
 export class VideosDetailComponent {
   uploadProgress: number = 0;
@@ -22,7 +22,7 @@ export class VideosDetailComponent {
     private videoUploadService: VideosService,
     private msg: NzMessageService,
     private router: Router,
-  ) {}
+  ) { }
 
   beforeUpload = (file: NzUploadFile): boolean | Observable<boolean> => {
     const isMp4 = file.type === 'video/mp4';
@@ -32,8 +32,10 @@ export class VideosDetailComponent {
     }
 
     const isLt2G = file.size! / 1024 / 1024 / 1024 < 2;
+
     if (!isLt2G) {
-      this.msg.error('File size must be less than 2GB');
+      const sizeMB = (file.size! / (1024 * 1024)).toFixed(2);
+      this.msg.error(`Fayl hajmi ${sizeMB}MB. 2GB dan kichik fayl yuklang.`);
       return false;
     }
 
@@ -70,23 +72,23 @@ export class VideosDetailComponent {
 
   trackProcessingProgress(videoName: string): void {
     const interval = setInterval(() => {
-        this.processingProgress += 20;
+      this.processingProgress += 20;
 
-        if (this.processingProgress >= 100) {
-            clearInterval(interval);
-            this.processing = false;
-            this.processingProgress = 0;
-            this.msg.success('Video processing complete');
-        }
+      if (this.processingProgress >= 100) {
+        clearInterval(interval);
+        this.processing = false;
+        this.processingProgress = 0;
+        this.msg.success('Video processing complete');
+      }
     }, 500);
 
     setTimeout(() => {
       this.router.navigate(['video'])
       this.videoUploadService.loadAll()
-    },1000)
+    }, 1000)
   }
 
-  back(){
+  back() {
     this.router.navigate(['video'])
   }
 }

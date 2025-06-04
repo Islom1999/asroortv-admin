@@ -4,9 +4,7 @@ import { IUser } from '../../../../../interfaces';
 import { Observable, of, switchMap } from 'rxjs';
 import { Breadcrumb } from '../../../../../types/breadcrump';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../../../shared/services/permission.service';
 import { UserClientService } from '../../service/user-client.service';
 import { UserClientDetailComponent } from '../user-client-detail/user-client-detail.component';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -14,10 +12,10 @@ import { StatusType } from '../../../../../enumerations';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
-    selector: 'app-user-client-list',
-    templateUrl: './user-client-list.component.html',
-    styleUrl: './user-client-list.component.scss',
-    standalone: false
+  selector: 'app-user-client-list',
+  templateUrl: './user-client-list.component.html',
+  styleUrl: './user-client-list.component.scss',
+  standalone: false
 })
 export class UserClientListComponent extends BaseComponentList<IUser> {
   users$: Observable<IUser[]> = of([]);
@@ -38,20 +36,17 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
   date = [this.date_start, this.date_end]
 
   override breadcrumb: Breadcrumb = {
-    header: "Userlar", 
-    label: "Userlar ro'yhati", 
+    header: "Userlar",
+    label: "Userlar ro'yhati",
     url: '/user-user'
   };
 
   constructor(
     private _baseSrv: UserClientService,
-    private _nzMessageService: NzMessageService,
-    private _breadcrumbService: BreadcrumbsService,
-    private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,  
+
     private drawerService: NzDrawerService,
-  ){
-    super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
+  ) {
+    super(_baseSrv)
   }
 
   override ngOnInit(): void {
@@ -60,7 +55,7 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
     this.users$ = this.data$;
   }
 
-  open(id:string): void {
+  open(id: string): void {
     this.drawerService.create<UserClientDetailComponent, { id: string }, string>({
       nzTitle: 'User premium ma\'lumotlari',
       nzContent: UserClientDetailComponent,
@@ -72,23 +67,23 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
   }
 
   onChange(result: Date[]): void {
-    if(result[0] && result[1]){
+    if (result[0] && result[1]) {
       this.date_start = result[0].toISOString().split('T')[0];
       this.date_end = result[1].toISOString().split('T')[0];
       this.load()
-    }else{
-      let params:HttpParams = new HttpParams()
+    } else {
+      let params: HttpParams = new HttpParams()
       this._baseSrv.updateParams(params)
     }
   }
 
-  load(){
-    let params:HttpParams = new HttpParams()
+  load() {
+    let params: HttpParams = new HttpParams()
     params = params.set('date_start', this.date_start)
     params = params.set('date_end', this.date_end)
     this._baseSrv.updateParams(params)
   }
-  
+
   // Search reset function
   reset(): void {
     this.searchValue = '';
@@ -103,9 +98,9 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
         of(
           item.filter((user) =>
             user?.name ?
-            user.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase()) : false
+              user.name
+                .toLocaleLowerCase()
+                .includes(this.searchValue.toLocaleLowerCase()) : false
           )
         )
       )
@@ -125,9 +120,9 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
         of(
           item.filter((user) =>
             user?.email ?
-            user.email
-              .toLocaleLowerCase()
-              .includes(this.searchValueEmail.toLocaleLowerCase()) : false
+              user.email
+                .toLocaleLowerCase()
+                .includes(this.searchValueEmail.toLocaleLowerCase()) : false
           )
         )
       )
@@ -147,10 +142,10 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
         of(
           item.filter((user) =>
             user?.phone ?
-            user.phone
-              .toString()
-              .toLocaleLowerCase()
-              .includes(this.searchValuePhone.toLocaleLowerCase()) : false
+              user.phone
+                .toString()
+                .toLocaleLowerCase()
+                .includes(this.searchValuePhone.toLocaleLowerCase()) : false
           )
         )
       )
@@ -170,15 +165,15 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
         of(
           item.filter((user) =>
             user?.status_type ?
-            user.status_type
-              .toString()
-              .toLocaleLowerCase()
-              .includes(this.searchValueType.toLocaleLowerCase()) : false
+              user.status_type
+                .toString()
+                .toLocaleLowerCase()
+                .includes(this.searchValueType.toLocaleLowerCase()) : false
           )
         )
       )
     );
   }
 
-  
+
 }

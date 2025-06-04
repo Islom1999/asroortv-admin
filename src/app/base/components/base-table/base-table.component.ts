@@ -6,7 +6,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-base-table',
@@ -25,13 +25,19 @@ import { NzTableModule } from 'ng-zorro-antd/table';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseTableComponent {
-  @Input() data: any[] = [];
-  @Input() loading: boolean = false;
   @Input() columns: { title: string, key: string }[] = [];
-
   @Output() onDelete = new EventEmitter<string>();
   @Output() onEdit = new EventEmitter<string>();
+  @Output() queryParamsChange = new EventEmitter<{ pageIndex: number, pageSize: number }>();
 
-  visible = false;
-  searchValue = '';
+  @Input() data: any[] = [];
+  @Input() loading: boolean = false;
+  @Input() total: number = 0; // jami elementlar soni
+  @Input() pageIndex: number = 1;
+  @Input() pageSize: number = 10;
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageIndex, pageSize } = params;
+    this.queryParamsChange.emit({ pageIndex, pageSize });
+  }
 }

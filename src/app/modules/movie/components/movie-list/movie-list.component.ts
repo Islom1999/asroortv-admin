@@ -5,17 +5,15 @@ import { Breadcrumb } from '../../../../../types/breadcrump';
 import { MovieService } from '../../service/movie.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../../../shared/services/permission.service';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { MovieType } from '../../../../../enumerations';
 import { MovieInfoComponent } from '../movie-info/movie-info.component';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
-    selector: 'app-movie-list',
-    templateUrl: './movie-list.component.html',
-    styleUrl: './movie-list.component.scss',
-    standalone: false
+  selector: 'app-movie-list',
+  templateUrl: './movie-list.component.html',
+  styleUrl: './movie-list.component.scss',
+  standalone: false
 })
 export class MovieListComponent implements OnInit {
   movies$: Observable<IMovie[]> = this._baseSrv._data.pipe()
@@ -26,8 +24,8 @@ export class MovieListComponent implements OnInit {
   visible = false;
 
   breadcrumb: Breadcrumb = {
-    header: "Movielar", 
-    label: "Movielar ro'yhati", 
+    header: "Movielar",
+    label: "Movielar ro'yhati",
     url: '/user-country'
   };
 
@@ -35,25 +33,20 @@ export class MovieListComponent implements OnInit {
     private _baseSrv: MovieService,
     private _nzMessageService: NzMessageService,
     private _breadcrumbService: BreadcrumbsService,
-    private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,  
     private drawerService: NzDrawerService,
-  ){
+  ) {
   }
 
   ngOnInit(): void {
     this._breadcrumbService.setBreadcrumbs([
-      { 
-        header:this.breadcrumb.header,
-        label:this.breadcrumb.label, 
+      {
+        header: this.breadcrumb.header,
+        label: this.breadcrumb.label,
         url: this.breadcrumb.url
       },
     ]);
-    this._permission.getPermisssion().subscribe(permission => {
-      this._permissionSrv.loadPermissions(permission);
-    })
   }
-  
+
   // Search reset function
   reset(): void {
     this.searchValue = '';
@@ -77,15 +70,15 @@ export class MovieListComponent implements OnInit {
   }
 
   delete(id: string | undefined): void {
-    if(!id) return
+    if (!id) return
     this._baseSrv.delete(id).subscribe((data) => {
-        this._nzMessageService.error('delete')
+      this._nzMessageService.error('delete')
     })
   }
 
   // info
-  open(id:string, movie_type:MovieType): void {
-    this.drawerService.create<MovieInfoComponent, { id: string, movie_type:MovieType }, string>({
+  open(id: string, movie_type: MovieType): void {
+    this.drawerService.create<MovieInfoComponent, { id: string, movie_type: MovieType }, string>({
       nzTitle: 'Movie ma\'lumotlari',
       nzContent: MovieInfoComponent,
       nzSize: 'large',

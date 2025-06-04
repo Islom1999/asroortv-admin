@@ -14,7 +14,7 @@ export abstract class BaseApiService<T> {
   readonly _params: Observable<HttpParams> = this._paramsSubject.asObservable();
   private _loadingSubject = new BehaviorSubject<Boolean>(true);
 
-  constructor(protected http: HttpClient, protected apiUrl: string, protected params?:HttpParams) {
+  constructor(protected http: HttpClient, protected apiUrl: string, protected params?: HttpParams) {
     this.loadAll(params)
   }
 
@@ -36,7 +36,7 @@ export abstract class BaseApiService<T> {
           this._loadingSubject.next(false);
         })
       )
-      .subscribe(); 
+      .subscribe();
   }
 
   getAll(params?: HttpParams): Observable<T[]> {
@@ -45,12 +45,12 @@ export abstract class BaseApiService<T> {
 
   getAllPanination(params?: HttpParams): Observable<IPagination<T[]>> {
     return this.http.get<IPagination<T[]>>(`${this.apiUrl}/pagination`, {
-      params: this._paramsSubject.value,
+      params: params ? params : this._paramsSubject.value,
     });
   }
 
   getById(id: string | undefined): Observable<T> {
-    if(!id) return of()
+    if (!id) return of()
     return this.http.get<T>(`${this.apiUrl}/${id}`);
   }
 

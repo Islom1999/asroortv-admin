@@ -1,49 +1,92 @@
 
 
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable, } from 'rxjs';
 import { BaseApiService } from '../services/base-api.service';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { Breadcrumb } from '../../../types/breadcrump';
 import { BreadcrumbsService } from '../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../shared/services/permission.service';
+import { HttpParams } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false
 })
 export abstract class BaseComponentList<T> implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private nzMessageService = inject(NzMessageService);
+  private breadcrumbService = inject(BreadcrumbsService)
+
   loading = false
   data$: Observable<T[]> = this.baseSrv._data.pipe()
+
+  data: any[] = [];
+  total = 0;
+  pageIndex = 1;
+  pageSize = 10;
+
+  filter: Partial<T> = {};
 
   abstract breadcrumb: Breadcrumb
 
   constructor(
     protected baseSrv: BaseApiService<T>,
-    protected nzMessageService: NzMessageService,
-    protected breadcrumbService: BreadcrumbsService,
-    protected permission: PermissionService,
-    protected permissionSrv: NgxPermissionsService,
-  ){}
+  ) { }
 
   ngOnInit() {
     this.breadcrumbService.setBreadcrumbs([
-      { 
-        header:this.breadcrumb.header,
-        label:this.breadcrumb.label, 
+      {
+        header: this.breadcrumb.header,
+        label: this.breadcrumb.label,
         url: this.breadcrumb.url
       },
     ]);
-    this.permission.getPermisssion().subscribe(permission => {
-      this.permissionSrv.loadPermissions(permission);
-    })
+  }
+
+  loadData(params: { pageIndex: number; pageSize: number }) {
+    this.loading = true;
+    this.pageIndex = params.pageIndex;
+    this.pageSize = params.pageSize;
+
+    let queryParams = new HttpParams()
+      .set('page', this.pageIndex.toString())
+      .set('limit', this.pageSize.toString());
+
+    Object.entries(this.filter).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== '') {
+        queryParams = queryParams.append(key, value as string);
+      }
+    });
+
+    this.baseSrv.getAllPanination(queryParams).subscribe(res => {
+      this.data = res.data;
+      this.total = res.count;
+      this.loading = false;
+    });
+  }
+
+  onSearch(filterObject: Partial<T>) {
+    this.filter = {
+      ...this.filter,
+      ...filterObject, // yangi qiymatlar bilan yangilanadi
+    };
+
+    this.loadData({ pageIndex: 1, pageSize: this.pageSize });
+  }
+
+
+  edit(id: string): void {
+    if (id) {
+      this.router.navigate(['update', id], { relativeTo: this.route });
+    }
   }
 
   delete(id: string | undefined): void {
-    if(!id) return
+    if (!id) return
     this.baseSrv.delete(id).subscribe((data) => {
-        this.nzMessageService.error('delete')
+      this.nzMessageService.error('delete')
     })
   }
 }

@@ -10,10 +10,10 @@ import { Breadcrumb } from '../../../../../types/breadcrump';
 import { Observable, of, switchMap } from 'rxjs';
 
 @Component({
-    selector: 'app-role-admin-list',
-    templateUrl: './role-admin-list.component.html',
-    styleUrl: './role-admin-list.component.scss',
-    standalone: false
+  selector: 'app-role-admin-list',
+  templateUrl: './role-admin-list.component.html',
+  styleUrl: './role-admin-list.component.scss',
+  standalone: false
 })
 export class RoleAdminListComponent extends BaseComponentList<IRole> {
   roles$: Observable<IRole[]> = of([]);
@@ -23,26 +23,23 @@ export class RoleAdminListComponent extends BaseComponentList<IRole> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Rollar", 
-    label: "Rollar ro'yhati", 
+    header: "Rollar",
+    label: "Rollar ro'yhati",
     url: '/role-admin'
   };
 
   constructor(
     private _baseSrv: RoleAdminService,
-    private _nzMessageService: NzMessageService,
-    private _breadcrumbService: BreadcrumbsService,
-    private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,  
-  ){
-    super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
+
+  ) {
+    super(_baseSrv)
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.roles$ = this.data$;
   }
-  
+
   // Search reset function
   reset(): void {
     this.searchValue = '';

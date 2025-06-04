@@ -6,6 +6,7 @@
         nzType="drag" 
         [nzDisabled]="uploading || processing" 
         [nzMultiple]="false"
+        accept=".mp4"
     >
         <ng-container *ngIf="!uploading && !processing">
             <p class="ant-upload-drag-icon">

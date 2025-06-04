@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { Observable, of, switchMap } from 'rxjs';
 import { IVideo } from '../../../../../interfaces';
 import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../../../shared/services/permission.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { VideosService } from '../../service/videos.service';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-videos-list',
@@ -31,12 +28,9 @@ export class VideosListComponent extends BaseComponentList<IVideo> {
 
   constructor(
     private _baseSrv: VideosService,
-    private _nzMessageService: NzMessageService,
-    private _breadcrumbService: BreadcrumbsService,
-    private _permission: PermissionService,
-    private _permissionSrv: NgxPermissionsService,
+
   ) {
-    super(_baseSrv, _nzMessageService, _breadcrumbService, _permission, _permissionSrv)
+    super(_baseSrv)
   }
 
   override ngOnInit(): void {
