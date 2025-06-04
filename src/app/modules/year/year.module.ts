@@ -10,30 +10,27 @@ import { BaseTableComponent } from '../../base/components/base-table/base-table.
 const routes: Routes = [
   {
     path: '',
-    component: YearListComponent
+    component: YearListComponent,
   },
   {
     path: 'add',
-    component: YearDetailComponent
+    component: YearDetailComponent,
   },
   {
     path: 'update/:id',
-    component: YearDetailComponent
+    component: YearDetailComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    YearDetailComponent,
-    YearListComponent
-  ],
+  declarations: [YearDetailComponent, YearListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
-    BaseTableComponent
-  ]
+    BaseTableComponent,
+  ],
 })
-export class YearModule { }
+export class YearModule {}

@@ -16,27 +16,27 @@ import { SerialPartDetailComponent } from './components/serial-part-detail/seria
 const routes: Routes = [
   {
     path: '',
-    component: MovieListComponent
+    component: MovieListComponent,
   },
   {
     path: 'add/movie',
-    data: {type: MovieType.movie},
-    component: MovieDetailComponent
+    data: { type: MovieType.movie },
+    component: MovieDetailComponent,
   },
   {
     path: 'add/serial',
-    data: {type: MovieType.serial},
-    component: MovieDetailComponent
+    data: { type: MovieType.serial },
+    component: MovieDetailComponent,
   },
   {
     path: 'update/movie/:id',
-    data: {type: MovieType.movie},
-    component: MovieDetailComponent
+    data: { type: MovieType.movie },
+    component: MovieDetailComponent,
   },
   {
     path: 'update/serial/:id',
-    data: {type: MovieType.serial},
-    component: MovieDetailComponent
+    data: { type: MovieType.serial },
+    component: MovieDetailComponent,
   },
 ];
 
@@ -45,7 +45,7 @@ const routes: Routes = [
     MovieListComponent,
     MovieDetailComponent,
     MovieInfoComponent,
-    SerialPartDetailComponent
+    SerialPartDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +58,6 @@ const routes: Routes = [
     NzUploadModule,
     NzModalModule,
     NzDrawerModule,
-  ]
+  ],
 })
-export class MovieModule { }
+export class MovieModule {}

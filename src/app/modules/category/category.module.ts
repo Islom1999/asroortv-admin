@@ -5,33 +5,32 @@ import { CategoryDetailComponent } from './components/category-detail/category-d
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseModule } from '../../shared/modules';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CategoryListComponent
+    component: CategoryListComponent,
   },
   {
     path: 'add',
-    component: CategoryDetailComponent
+    component: CategoryDetailComponent,
   },
   {
     path: 'update/:id',
-    component: CategoryDetailComponent
+    component: CategoryDetailComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    CategoryListComponent,
-    CategoryDetailComponent
-  ],
+  declarations: [CategoryListComponent, CategoryDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
-  ]
+    BaseTableComponent,
+  ],
 })
-export class CategoryModule { }
+export class CategoryModule {}

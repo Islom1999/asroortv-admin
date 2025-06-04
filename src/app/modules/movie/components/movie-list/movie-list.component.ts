@@ -13,36 +13,35 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class MovieListComponent implements OnInit {
-  movies$: Observable<IMovie[]> = this._baseSrv._data.pipe()
-  movie_type_serial = MovieType.serial
+  movies$: Observable<IMovie[]> = this._baseSrv._data.pipe();
+  movie_type_serial = MovieType.serial;
 
   // Serch variables
   searchValue = '';
   visible = false;
 
   breadcrumb: Breadcrumb = {
-    header: "Movielar",
+    header: 'Movielar',
     label: "Movielar ro'yhati",
-    url: '/user-country'
+    url: '/user-country',
   };
 
   constructor(
     private _baseSrv: MovieService,
     private _nzMessageService: NzMessageService,
     private _breadcrumbService: BreadcrumbsService,
-    private drawerService: NzDrawerService,
-  ) {
-  }
+    private drawerService: NzDrawerService
+  ) {}
 
   ngOnInit(): void {
     this._breadcrumbService.setBreadcrumbs([
       {
         header: this.breadcrumb.header,
         label: this.breadcrumb.label,
-        url: this.breadcrumb.url
+        url: this.breadcrumb.url,
       },
     ]);
   }
@@ -70,22 +69,26 @@ export class MovieListComponent implements OnInit {
   }
 
   delete(id: string | undefined): void {
-    if (!id) return
+    if (!id) return;
     this._baseSrv.delete(id).subscribe((data) => {
-      this._nzMessageService.error('delete')
-    })
+      this._nzMessageService.error('delete');
+    });
   }
 
   // info
   open(id: string, movie_type: MovieType): void {
-    this.drawerService.create<MovieInfoComponent, { id: string, movie_type: MovieType }, string>({
-      nzTitle: 'Movie ma\'lumotlari',
+    this.drawerService.create<
+      MovieInfoComponent,
+      { id: string; movie_type: MovieType },
+      string
+    >({
+      nzTitle: "Movie ma'lumotlari",
       nzContent: MovieInfoComponent,
       nzSize: 'large',
       nzContentParams: {
         id: id,
-        movie_type
-      }
+        movie_type,
+      },
     });
   }
 }

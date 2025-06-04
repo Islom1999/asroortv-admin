@@ -11,7 +11,7 @@ import { MovieGenreService } from '../../service/movie-genre.service';
   selector: 'app-movie-genre-list',
   templateUrl: './movie-genre-list.component.html',
   styleUrl: './movie-genre-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class MovieGenreListComponent extends BaseComponentList<IMovieGenre> {
   movie_genres$: Observable<IMovieGenre[]> = of([]);
@@ -21,18 +21,15 @@ export class MovieGenreListComponent extends BaseComponentList<IMovieGenre> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "MovieGenrelar",
+    header: 'MovieGenrelar',
     label: "MovieGenrelar ro'yhati",
-    url: '/user-movie_genre'
+    url: '/user-movie_genre',
   };
 
-  constructor(
-    private _baseSrv: MovieGenreService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: MovieGenreService) {
+    super(_baseSrv);
   }
-
+  columns = [{ title: 'Nomi', key: 'name' }];
   override ngOnInit(): void {
     super.ngOnInit();
     this.movie_genres$ = this.data$;

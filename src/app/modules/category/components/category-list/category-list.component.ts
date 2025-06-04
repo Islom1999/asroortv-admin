@@ -11,7 +11,7 @@ import { CategoryService } from '../../service/category.service';
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class CategoryListComponent extends BaseComponentList<ICategory> {
   categorys$: Observable<ICategory[]> = of([]);
@@ -21,16 +21,13 @@ export class CategoryListComponent extends BaseComponentList<ICategory> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Categorylar",
+    header: 'Categorylar',
     label: "Categorylar ro'yhati",
-    url: '/user-category'
+    url: '/user-category',
   };
 
-  constructor(
-    private _baseSrv: CategoryService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: CategoryService) {
+    super(_baseSrv);
   }
 
   override ngOnInit(): void {
@@ -43,7 +40,7 @@ export class CategoryListComponent extends BaseComponentList<ICategory> {
     this.searchValue = '';
     this.search();
   }
-
+  columns = [{ title: 'Nomi', key: 'name' }];
   // Search function
   search(): void {
     this.visible = false;

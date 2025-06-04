@@ -11,7 +11,7 @@ import { CountryService } from '../../service/country.service';
   selector: 'app-country-list',
   templateUrl: './country-list.component.html',
   styleUrl: './country-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class CountryListComponent extends BaseComponentList<ICountry> {
   countrys$: Observable<ICountry[]> = of([]);
@@ -21,18 +21,15 @@ export class CountryListComponent extends BaseComponentList<ICountry> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Countrylar",
+    header: 'Countrylar',
     label: "Countrylar ro'yhati",
-    url: '/user-country'
+    url: '/user-country',
   };
 
-  constructor(
-    private _baseSrv: CountryService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: CountryService) {
+    super(_baseSrv);
   }
-
+  columns = [{ title: 'Nomi', key: 'name' }];
   override ngOnInit(): void {
     super.ngOnInit();
     this.countrys$ = this.data$;

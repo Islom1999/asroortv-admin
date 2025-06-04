@@ -5,33 +5,32 @@ import { CountryListComponent } from './components/country-list/country-list.com
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseModule } from '../../shared/modules';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CountryListComponent
+    component: CountryListComponent,
   },
   {
     path: 'add',
-    component: CountryDetailComponent
+    component: CountryDetailComponent,
   },
   {
     path: 'update/:id',
-    component: CountryDetailComponent
+    component: CountryDetailComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    CountryDetailComponent,
-    CountryListComponent
-  ],
+  declarations: [CountryDetailComponent, CountryListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
-  ]
+    BaseTableComponent,
+  ],
 })
-export class CountryModule { }
+export class CountryModule {}
