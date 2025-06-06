@@ -1,24 +1,36 @@
 <div class="table-top">
-    <div class="left">
-        <h2>Yillar ro'yhati</h2>
-    </div>
-    <div class="right">
-        <a nz-button [routerLink]="['add']" nzType="primary" nzSearch nzSize="large">
-            <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
-        </a>
-    </div>
+  <div class="left">
+    <h2>Yillar ro'yhati</h2>
+  </div>
+  <div class="right">
+    <a
+      nz-button
+      [routerLink]="['add']"
+      nzType="primary"
+      nzSearch
+      nzSize="large"
+    >
+      <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+    </a>
+  </div>
 </div>
 
 <nz-input-group [nzSuffix]="suffixIcon" nzSearch nzSize="large">
-  <input type="number" nz-input placeholder="Year izlash..." [(ngModel)]="yearFilter" (ngModelChange)="onSearchChange(+$event)" />
+  <input
+    type="number"
+    nz-input
+    placeholder="Year izlash..."
+    [(ngModel)]="yearFilter"
+    (ngModelChange)="onSearchChange(+$event)"
+  />
   <ng-template #suffixIcon>
     <span nz-icon nzType="search"></span>
   </ng-template>
 </nz-input-group>
 
 <app-base-table
-  [data]="data"
-  [loading]="loading"
+  [data]="(data$ | async) ?? []"
+  [loading]="(data$ | async) ? false : true"
   [columns]="columns"
   [total]="total"
   [pageIndex]="pageIndex"

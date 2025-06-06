@@ -11,7 +11,7 @@ import { PromoService } from '../../service/promo.service';
   selector: 'app-promo-list',
   templateUrl: './promo-list.component.html',
   styleUrl: './promo-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class PromoListComponent extends BaseComponentList<IPromo> {
   promos$: Observable<IPromo[]> = of([]);
@@ -21,16 +21,13 @@ export class PromoListComponent extends BaseComponentList<IPromo> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Promolar",
+    header: 'Promolar',
     label: "Promolar ro'yhati",
-    url: '/user-promo'
+    url: '/user-promo',
   };
 
-  constructor(
-    private _baseSrv: PromoService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: PromoService) {
+    super(_baseSrv);
   }
 
   override ngOnInit(): void {
@@ -43,7 +40,7 @@ export class PromoListComponent extends BaseComponentList<IPromo> {
     this.searchValue = '';
     this.search();
   }
-
+  //columns = [{ title: 'nomi', key: 'name' }];
   // Search function
   search(): void {
     this.visible = false;

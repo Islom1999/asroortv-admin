@@ -11,9 +11,12 @@ import { BaseComponentList } from '../../../../base/components/base-list';
   selector: 'app-plan-list',
   templateUrl: './plan-list.component.html',
   styleUrl: './plan-list.component.scss',
-  standalone: false
+  standalone: false,
 })
-export class PlanListComponent extends BaseComponentList<IPlan> implements OnInit {
+export class PlanListComponent
+  extends BaseComponentList<IPlan>
+  implements OnInit
+{
   plans$: Observable<IPlan[]> = of([]);
 
   // Serch variables
@@ -21,18 +24,15 @@ export class PlanListComponent extends BaseComponentList<IPlan> implements OnIni
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Planlar",
+    header: 'Planlar',
     label: "Planlar ro'yhati",
-    url: '/user-plan'
+    url: '/user-plan',
   };
 
-  constructor(
-    private _baseSrv: PlanService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: PlanService) {
+    super(_baseSrv);
   }
-
+  columns = [{ title: 'Nomi', key: 'name' }];
   override ngOnInit(): void {
     super.ngOnInit();
     this.plans$ = this.data$;

@@ -5,33 +5,32 @@ import { RoleAdminDetailComponent } from './components/role-admin-detail/role-ad
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseModule } from '../../shared/modules';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RoleAdminListComponent
+    component: RoleAdminListComponent,
   },
   {
     path: 'add',
-    component: RoleAdminDetailComponent
+    component: RoleAdminDetailComponent,
   },
   {
     path: 'update/:id',
-    component: RoleAdminDetailComponent
+    component: RoleAdminDetailComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    RoleAdminListComponent,
-    RoleAdminDetailComponent
-  ],
+  declarations: [RoleAdminListComponent, RoleAdminDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
-  ]
+    BaseTableComponent,
+  ],
 })
-export class RoleAdminModule { }
+export class RoleAdminModule {}

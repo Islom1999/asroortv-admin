@@ -23,7 +23,7 @@ export class YearListComponent extends BaseComponentList<IYear> {
     super(_baseSrv);
   }
 
-  columns = [{ title: 'data.name', key: '' }];
+  columns = [{ title: 'Nomi', key: 'name' }];
 
   override ngOnInit(): void {
     super.ngOnInit();

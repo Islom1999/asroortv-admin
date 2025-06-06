@@ -11,7 +11,7 @@ import { SounderService } from '../../service/sounder.service';
   selector: 'app-sounder-list',
   templateUrl: './sounder-list.component.html',
   styleUrl: './sounder-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class SounderListComponent extends BaseComponentList<ISounder> {
   sounders$: Observable<ISounder[]> = of([]);
@@ -21,21 +21,19 @@ export class SounderListComponent extends BaseComponentList<ISounder> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Sounderlar",
+    header: 'Sounderlar',
     label: "Sounderlar ro'yhati",
-    url: '/user-sounder'
+    url: '/user-sounder',
   };
 
-  constructor(
-    private _baseSrv: SounderService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: SounderService) {
+    super(_baseSrv);
   }
-
+  columns = [{ title: 'Nomi', key: 'name' }];
   override ngOnInit(): void {
     super.ngOnInit();
     this.sounders$ = this.data$;
+    console.log(this.sounders$);
   }
 
   // Search reset function

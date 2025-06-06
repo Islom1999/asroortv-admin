@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { IRole } from '../../../../../interfaces';
 import { RoleAdminService } from '../../service/role-admin.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { PermissionService } from '../../../../shared/services/permission.service';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { Breadcrumb } from '../../../../../types/breadcrump';
 import { Observable, of, switchMap } from 'rxjs';
 
@@ -13,7 +9,7 @@ import { Observable, of, switchMap } from 'rxjs';
   selector: 'app-role-admin-list',
   templateUrl: './role-admin-list.component.html',
   styleUrl: './role-admin-list.component.scss',
-  standalone: false
+  standalone: false,
 })
 export class RoleAdminListComponent extends BaseComponentList<IRole> {
   roles$: Observable<IRole[]> = of([]);
@@ -23,16 +19,13 @@ export class RoleAdminListComponent extends BaseComponentList<IRole> {
   visible = false;
 
   override breadcrumb: Breadcrumb = {
-    header: "Rollar",
+    header: 'Rollar',
     label: "Rollar ro'yhati",
-    url: '/role-admin'
+    url: '/role-admin',
   };
 
-  constructor(
-    private _baseSrv: RoleAdminService,
-
-  ) {
-    super(_baseSrv)
+  constructor(private _baseSrv: RoleAdminService) {
+    super(_baseSrv);
   }
 
   override ngOnInit(): void {
@@ -45,7 +38,7 @@ export class RoleAdminListComponent extends BaseComponentList<IRole> {
     this.searchValue = '';
     this.search();
   }
-
+  columns = [{ title: 'Nomi', key: 'name' }];
   // Search function
   search(): void {
     this.visible = false;

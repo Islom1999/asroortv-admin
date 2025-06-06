@@ -5,33 +5,32 @@ import { SounderDetailComponent } from './components/sounder-detail/sounder-deta
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseModule } from '../../shared/modules';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SounderListComponent
+    component: SounderListComponent,
   },
   {
     path: 'add',
-    component: SounderDetailComponent
+    component: SounderDetailComponent,
   },
   {
     path: 'update/:id',
-    component: SounderDetailComponent
+    component: SounderDetailComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    SounderListComponent,
-    SounderDetailComponent
-  ],
+  declarations: [SounderListComponent, SounderDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
-  ]
+    BaseTableComponent,
+  ],
 })
-export class SounderModule { }
+export class SounderModule {}

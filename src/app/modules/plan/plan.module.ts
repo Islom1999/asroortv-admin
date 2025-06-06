@@ -1,3 +1,4 @@
+import { BaseTableComponent } from './../../base/components/base-table/base-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlanDetailComponent } from './components/plan-detail/plan-detail.component';
@@ -9,29 +10,27 @@ import { BaseModule } from '../../shared/modules';
 const routes: Routes = [
   {
     path: '',
-    component: PlanListComponent
+    component: PlanListComponent,
   },
   {
     path: 'add',
-    component: PlanDetailComponent
+    component: PlanDetailComponent,
   },
   {
     path: 'update/:id',
-    component: PlanDetailComponent
+    component: PlanDetailComponent,
   },
 ];
 
 @NgModule({
-  declarations: [
-    PlanDetailComponent,
-    PlanListComponent
-  ],
+  declarations: [PlanDetailComponent, PlanListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     BaseModule,
-  ]
+    BaseTableComponent,
+  ],
 })
-export class PlanModule { }
+export class PlanModule {}

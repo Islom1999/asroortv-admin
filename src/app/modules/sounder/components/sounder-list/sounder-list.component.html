@@ -1,15 +1,42 @@
 <div class="table-top">
-    <div class="left">
-        <h2>Sounder ro'yhati</h2>
-    </div>
-    <div class="right">
-        <a nz-button [routerLink]="['add']" nzType="primary" nzSearch nzSize="large">
-            <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
-        </a>
-    </div>
+  <div class="left">
+    <h2>Sounder ro'yhati</h2>
+  </div>
+  <div class="right">
+    <a
+      nz-button
+      [routerLink]="['add']"
+      nzType="primary"
+      nzSearch
+      nzSize="large"
+    >
+      <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+    </a>
+  </div>
 </div>
-
-<ng-container>
+<div style="margin-bottom: 20px; text-align: center">
+  <nz-filter-trigger
+    [(nzVisible)]="visible"
+    [nzActive]="searchValue.length > 0"
+    [nzDropdownMenu]="menu"
+  >
+    <button nz-button nzSize="large">
+      <span nz-icon nzType="search" style="color: blue"></span>
+    </button>
+  </nz-filter-trigger>
+</div>
+<app-base-table
+  [data]="(sounders$ | async) ?? []"
+  [loading]="(sounders$ | async) ? false : true"
+  [columns]="columns"
+  [total]="total"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  (onDelete)="delete($event)"
+  (onEdit)="edit($event)"
+  (queryParamsChange)="loadData($event)"
+></app-base-table>
+<!--<ng-container>
     <nz-table [nzScroll]="{x: 'auto'}" nz-responsive #basicTable [nzData]="(sounders$ | async) ?? []"
         [nzLoading]="(sounders$ | async) ? false : true">
         <thead>
@@ -46,14 +73,27 @@
             </tr>
         </tbody>
     </nz-table>
-</ng-container>
+</ng-container>-->
 
 <nz-dropdown-menu #menu="nzDropdownMenu">
-    <div class="ant-table-filter-dropdown">
-        <div class="search-box">
-            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
-            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
-            <button nz-button nzSize="small" (click)="reset()">Reset</button>
-        </div>
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search name"
+        [(ngModel)]="searchValue"
+      />
+      <button
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        (click)="search()"
+        class="search-button"
+      >
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
     </div>
+  </div>
 </nz-dropdown-menu>
