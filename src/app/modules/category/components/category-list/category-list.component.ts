@@ -14,11 +14,7 @@ import { CategoryService } from '../../service/category.service';
   standalone: false,
 })
 export class CategoryListComponent extends BaseComponentList<ICategory> {
-  categorys$: Observable<ICategory[]> = of([]);
-
-  // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: 'Categorylar',
@@ -26,34 +22,17 @@ export class CategoryListComponent extends BaseComponentList<ICategory> {
     url: '/user-category',
   };
 
+  columns = [{ title: 'Nomi', key: 'name' }];
+
   constructor(private _baseSrv: CategoryService) {
     super(_baseSrv);
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.categorys$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-  columns = [{ title: 'Nomi', key: 'name' }];
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.categorys$ = this.categorys$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((category) =>
-            category.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ name: value });
   }
 }

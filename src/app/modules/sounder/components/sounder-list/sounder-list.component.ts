@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { ISounder } from '../../../../../interfaces/sounder';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { Observable, of, switchMap } from 'rxjs';
 import { Breadcrumb } from '../../../../../types/breadcrump';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 import { SounderService } from '../../service/sounder.service';
 
 @Component({
@@ -14,11 +11,7 @@ import { SounderService } from '../../service/sounder.service';
   standalone: false,
 })
 export class SounderListComponent extends BaseComponentList<ISounder> {
-  sounders$: Observable<ISounder[]> = of([]);
-
-  // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: 'Sounderlar',
@@ -30,31 +23,12 @@ export class SounderListComponent extends BaseComponentList<ISounder> {
     super(_baseSrv);
   }
   columns = [{ title: 'Nomi', key: 'name' }];
+
   override ngOnInit(): void {
     super.ngOnInit();
-    this.sounders$ = this.data$;
-    console.log(this.sounders$);
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.sounders$ = this.sounders$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((sounder) =>
-            sounder.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ name: value });
   }
 }

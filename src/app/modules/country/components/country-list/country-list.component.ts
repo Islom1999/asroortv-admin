@@ -14,11 +14,7 @@ import { CountryService } from '../../service/country.service';
   standalone: false,
 })
 export class CountryListComponent extends BaseComponentList<ICountry> {
-  countrys$: Observable<ICountry[]> = of([]);
-
-  // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: 'Countrylar',
@@ -32,28 +28,9 @@ export class CountryListComponent extends BaseComponentList<ICountry> {
   columns = [{ title: 'Nomi', key: 'name' }];
   override ngOnInit(): void {
     super.ngOnInit();
-    this.countrys$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.countrys$ = this.countrys$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((country) =>
-            country.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ name: value });
   }
 }

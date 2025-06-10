@@ -14,11 +14,7 @@ import { MovieGenreService } from '../../service/movie-genre.service';
   standalone: false,
 })
 export class MovieGenreListComponent extends BaseComponentList<IMovieGenre> {
-  movie_genres$: Observable<IMovieGenre[]> = of([]);
-
-  // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: 'MovieGenrelar',
@@ -32,28 +28,9 @@ export class MovieGenreListComponent extends BaseComponentList<IMovieGenre> {
   columns = [{ title: 'Nomi', key: 'name' }];
   override ngOnInit(): void {
     super.ngOnInit();
-    this.movie_genres$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.movie_genres$ = this.movie_genres$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((movie_genre) =>
-            movie_genre.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ name: value });
   }
 }

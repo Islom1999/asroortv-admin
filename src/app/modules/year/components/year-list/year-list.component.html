@@ -29,8 +29,8 @@
 </nz-input-group>
 
 <app-base-table
-  [data]="(data$ | async) ?? []"
-  [loading]="(data$ | async) ? false : true"
+  [data]="data"
+  [loading]="data.length ? false : true"
   [columns]="columns"
   [total]="total"
   [pageIndex]="pageIndex"
