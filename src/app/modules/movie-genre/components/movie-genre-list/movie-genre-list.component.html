@@ -28,8 +28,8 @@
 </nz-input-group>
 
 <app-base-table
-  [data]="data"
-  [loading]="data.length ? false : true"
+  [data]="data()"
+  [loading]="data().length ? false : true"
   [columns]="columns"
   [total]="total"
   [pageIndex]="pageIndex"

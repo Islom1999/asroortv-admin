@@ -1,7 +1,7 @@
 
 
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { Observable, } from 'rxjs';
 import { BaseApiService } from '../services/base-api.service';
 import { Breadcrumb } from '../../../types/breadcrump';
@@ -22,7 +22,7 @@ export abstract class BaseComponentList<T> implements OnInit {
   loading = false
   data$: Observable<T[]> = this.baseSrv._data.pipe()
 
-  data: any[] = [];
+  data = signal<T[]>([]);
   total = 0;
   pageIndex = 1;
   pageSize = 10;
@@ -61,7 +61,7 @@ export abstract class BaseComponentList<T> implements OnInit {
     });
 
     this.baseSrv.getAllPanination(queryParams).subscribe(res => {
-      this.data = res.data;
+      this.data.set(res.data)
       this.total = res.count;
       this.loading = false;
     });
