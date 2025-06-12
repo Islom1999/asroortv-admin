@@ -7,6 +7,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NestedValuePipe } from './nested-value.pipe';
 
 @Component({
   selector: 'app-base-table',
@@ -18,7 +19,8 @@ import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
     NzInputModule,
     NzSpinModule,
     NzSelectModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NestedValuePipe,
   ],
   templateUrl: './base-table.component.html',
   styleUrl: './base-table.component.css',
@@ -35,6 +37,10 @@ export class BaseTableComponent {
   @Input() total: number = 0; // jami elementlar soni
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
+  @Input() isDelete: boolean = true
+  @Input() nzTypeDelete: string = 'delete'
+  @Input() isEdit: boolean = true
+  @Input() nzTypeEdit: string = 'edit'
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex, pageSize } = params;

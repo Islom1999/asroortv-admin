@@ -14,15 +14,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: false
 })
 export abstract class BaseComponentList<T> implements OnInit {
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-  private nzMessageService = inject(NzMessageService);
-  private breadcrumbService = inject(BreadcrumbsService)
-
-  loading = false
-  data$: Observable<T[]> = this.baseSrv._data.pipe()
+  public route = inject(ActivatedRoute);
+  public router = inject(Router);
+  public nzMessageService = inject(NzMessageService);
+  public breadcrumbService = inject(BreadcrumbsService)
 
   data = signal<T[]>([]);
+  loading = false
   total = 0;
   pageIndex = 1;
   pageSize = 10;

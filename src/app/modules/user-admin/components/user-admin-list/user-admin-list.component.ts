@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { Observable, of, switchMap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IAdmin } from '../../../../../interfaces';
 import { Breadcrumb } from '../../../../../types/breadcrump';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 import { UserAdminService } from '../../service/user-admin.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 
@@ -14,17 +12,19 @@ import { BaseComponentList } from '../../../../base/components/base-list';
   standalone: false
 })
 export class UserAdminListComponent extends BaseComponentList<IAdmin> {
-  admins$: Observable<IAdmin[]> = of([]);
-
-  // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: "Adminlar",
     label: "Adminlar ro'yhati",
     url: '/user-admin'
   };
+
+  columns = [
+    { title: 'Ismi', key: 'name' },
+    { title: 'Email', key: 'email' },
+    { title: 'Status', key: 'is_block' },
+  ];
 
   constructor(
     private _baseSrv: UserAdminService,
@@ -35,28 +35,9 @@ export class UserAdminListComponent extends BaseComponentList<IAdmin> {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.admins$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.admins$ = this.admins$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((admin) =>
-            admin.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ name: value });
   }
 }

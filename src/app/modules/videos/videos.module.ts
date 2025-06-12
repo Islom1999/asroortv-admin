@@ -8,6 +8,7 @@ import { BaseModule } from '../../shared/modules';
 import { VideosInfoComponent } from './components/videos-info/videos-info.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,8 @@ const routes: Routes = [
     BaseModule,
 
     NzUploadModule,
-    NzProgressModule
+    NzProgressModule,
+    BaseTableComponent,
   ]
 })
 export class VideosModule { }

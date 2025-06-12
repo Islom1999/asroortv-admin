@@ -10,6 +10,7 @@ import { BaseModule } from '../../shared/modules';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { BaseTableComponent } from '../../base/components/base-table/base-table.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
     NzModalModule,
     NzDrawerModule,
     NzDatePickerModule,
+    BaseTableComponent,
   ]
 })
 export class UserClientModule { }

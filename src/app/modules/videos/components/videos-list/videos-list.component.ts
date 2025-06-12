@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { Observable, of, switchMap } from 'rxjs';
 import { IVideo } from '../../../../../interfaces';
 import { Breadcrumb } from '../../../../../types/breadcrump';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { VideosService } from '../../service/videos.service';
 
@@ -14,17 +11,21 @@ import { VideosService } from '../../service/videos.service';
   standalone: false
 })
 export class VideosListComponent extends BaseComponentList<IVideo> {
-  videos$: Observable<IVideo[]> = of([]);
-
-  // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: "Videolar",
     label: "Videolar ro'yhati",
     url: '/'
   };
+
+  columns = [
+    { title: 'Fayl nomi', key: 'file_name' },
+    { title: 'Default format', key: 'default_format' },
+    { title: 'Fayl hajmi', key: 'file_size' },
+    { title: 'Formatlar', key: 'format' },
+    { title: 'Yuklangan sana', key: 'created_at' },
+  ];
 
   constructor(
     private _baseSrv: VideosService,
@@ -35,33 +36,15 @@ export class VideosListComponent extends BaseComponentList<IVideo> {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.videos$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
+  override edit(id: string): void {
+    if (id) {
+      this.router.navigate(['info', id], { relativeTo: this.route });
+    }
   }
 
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.videos$ = this.videos$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((video) =>
-            video.file_name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ file_name: value });
   }
-
-  // formatDate(date: Date): string {
-  //   const formattedDate = formatDate(date, 'dd.MM.yyyy HH:mm:ss', 'en-US', '+0500');
-  //   return formattedDate;
-  // }
 }

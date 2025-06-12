@@ -33,4 +33,4 @@ const routes: Routes = [
     BaseTableComponent,
   ],
 })
-export class PromoModule {}
+export class PromoModule { }

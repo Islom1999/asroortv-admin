@@ -14,11 +14,8 @@ import { PromoService } from '../../service/promo.service';
   standalone: false,
 })
 export class PromoListComponent extends BaseComponentList<IPromo> {
-  promos$: Observable<IPromo[]> = of([]);
-
   // Serch variables
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: 'Promolar',
@@ -26,34 +23,24 @@ export class PromoListComponent extends BaseComponentList<IPromo> {
     url: '/user-promo',
   };
 
+  columns = [
+    { title: 'Promo', key: 'code' },
+    { title: 'Chegirma', key: 'discount' },
+    { title: 'Tarif', key: 'plan.name' },
+    { title: 'Tarif', key: 'admin.name' },
+    { title: 'Status', key: 'is_active' },
+    { title: 'Soni', key: 'count' },
+  ];
+
   constructor(private _baseSrv: PromoService) {
     super(_baseSrv);
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.promos$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-  //columns = [{ title: 'nomi', key: 'name' }];
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.promos$ = this.promos$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((promo) =>
-            promo.code
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ code: value });
   }
 }

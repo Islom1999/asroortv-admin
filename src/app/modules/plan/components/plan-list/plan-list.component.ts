@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IPlan } from '../../../../../interfaces';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { Observable, of, switchMap } from 'rxjs';
 import { Breadcrumb } from '../../../../../types/breadcrump';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
 import { PlanService } from '../../service/plan.service';
 import { BaseComponentList } from '../../../../base/components/base-list';
 
@@ -15,13 +12,8 @@ import { BaseComponentList } from '../../../../base/components/base-list';
 })
 export class PlanListComponent
   extends BaseComponentList<IPlan>
-  implements OnInit
-{
-  plans$: Observable<IPlan[]> = of([]);
-
-  // Serch variables
+  implements OnInit {
   searchValue = '';
-  visible = false;
 
   override breadcrumb: Breadcrumb = {
     header: 'Planlar',
@@ -32,31 +24,17 @@ export class PlanListComponent
   constructor(private _baseSrv: PlanService) {
     super(_baseSrv);
   }
-  columns = [{ title: 'Nomi', key: 'name' }];
+  columns = [
+    { title: 'Nomi', key: 'name' },
+    { title: 'Narxi', key: 'price' },
+    { title: 'Premium kuni', key: 'premium_date' },
+    { title: 'Status', key: 'is_active' },
+  ];
   override ngOnInit(): void {
     super.ngOnInit();
-    this.plans$ = this.data$;
   }
 
-  // Search reset function
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  // Search function
-  search(): void {
-    this.visible = false;
-    this.plans$ = this.plans$.pipe(
-      switchMap((item) =>
-        of(
-          item.filter((plan) =>
-            plan.name
-              .toLocaleLowerCase()
-              .includes(this.searchValue.toLocaleLowerCase())
-          )
-        )
-      )
-    );
+  onSearchChange(value: string): void {
+    this.onSearch({ name: value });
   }
 }

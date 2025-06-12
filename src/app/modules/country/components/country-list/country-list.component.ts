@@ -25,7 +25,9 @@ export class CountryListComponent extends BaseComponentList<ICountry> {
   constructor(private _baseSrv: CountryService) {
     super(_baseSrv);
   }
+
   columns = [{ title: 'Nomi', key: 'name' }];
+
   override ngOnInit(): void {
     super.ngOnInit();
   }

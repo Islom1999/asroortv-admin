@@ -1,7 +1,7 @@
 import { StatusType } from "../enumerations";
 import { IRole } from "./role";
 
-export interface IAdmin{
+export interface IAdmin {
     id?: string;
     name: string;
     email: string;
@@ -9,10 +9,11 @@ export interface IAdmin{
     role_id: string;
 
     role?: IRole
-}   
+}
 
-export interface IUser{
+export interface IUser {
     id?: string;
+    bigint_id?: number;
     image: string;
     name: string;
     email: string;
