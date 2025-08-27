@@ -12,6 +12,7 @@ import { MovieType } from '../../../enumerations';
 import { MovieInfoComponent } from './components/movie-info/movie-info.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { SerialPartDetailComponent } from './components/serial-part-detail/serial-part-detail.component';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 const routes: Routes = [
   {
@@ -58,6 +59,7 @@ const routes: Routes = [
     NzUploadModule,
     NzModalModule,
     NzDrawerModule,
+    NzDatePickerModule,
   ],
 })
 export class MovieModule {}

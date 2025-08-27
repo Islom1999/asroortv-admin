@@ -12,22 +12,22 @@ import { MovieInfoComponent } from '../movie-info/movie-info.component';
 import { MovieType } from '../../../../../enumerations';
 
 @Component({
-    selector: 'app-serial-part-detail',
-    templateUrl: './serial-part-detail.component.html',
-    styleUrl: './serial-part-detail.component.scss',
-    standalone: false
+  selector: 'app-serial-part-detail',
+  templateUrl: './serial-part-detail.component.html',
+  styleUrl: './serial-part-detail.component.scss',
+  standalone: false,
 })
 export class SerialPartDetailComponent implements OnInit {
   @Input()
-  id!:string
+  id!: string;
   @Input()
-  parent_id!:string
+  parent_id!: string;
 
-  movie!: IMovie
-  
+  movie!: IMovie;
+
   loading = true;
   disableBtn = true;
-  video$!:Observable<IVideo[]>
+  video$!: Observable<IVideo[]>;
 
   form: FormGroup = new FormGroup({});
 
@@ -37,17 +37,19 @@ export class SerialPartDetailComponent implements OnInit {
     private nzMessageService: NzMessageService,
     protected breadcrumbService: BreadcrumbsService,
     private drawerService: NzDrawerService,
-    private drawerRef: NzDrawerRef,
+    private drawerRef: NzDrawerRef
   ) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
       video_id: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
+      posted: new FormControl(false, [Validators.required]),
+      posted_at: new FormControl(new Date(), [Validators.required]),
     });
     if (this.id) {
       this._modelSrv.getByIdPart(this.id).subscribe((movie) => {
-        this.movie = movie
+        this.movie = movie;
         this.form.patchValue(movie);
         this.disableBtn = false;
         this.loading = false;
@@ -56,7 +58,7 @@ export class SerialPartDetailComponent implements OnInit {
       this.loading = false;
       this.disableBtn = false;
     }
-    this.video$ = this._videoSrv.getAll()
+    this.video$ = this._videoSrv.getAll();
   }
 
   submit() {
@@ -67,8 +69,8 @@ export class SerialPartDetailComponent implements OnInit {
       } else {
         this.create();
       }
-      this._videoSrv.loadAll()
-      this.open(this.parent_id, MovieType.serial)
+      this._videoSrv.loadAll();
+      this.open(this.parent_id, MovieType.serial);
     } else {
       Object.values(this.form.controls).forEach((control) => {
         if (control.invalid) {
@@ -81,7 +83,7 @@ export class SerialPartDetailComponent implements OnInit {
 
   create() {
     this._modelSrv
-      .createPart({...this.form.value, movie_id: this.parent_id})
+      .createPart({ ...this.form.value, movie_id: this.parent_id })
       .pipe(
         catchError(({ error }) => {
           if (error?.statusCode == 409)
@@ -92,13 +94,13 @@ export class SerialPartDetailComponent implements OnInit {
       )
       .subscribe(() => {
         this.nzMessageService.success('Create data');
-    });
-    this.drawerRef.close()
+      });
+    this.drawerRef.close();
   }
 
   update(id: string) {
     this._modelSrv
-      .updatePart(id, {...this.form.value, movie_id: this.parent_id})
+      .updatePart(id, { ...this.form.value, movie_id: this.parent_id })
       .pipe(
         catchError(({ error }) => {
           if (error?.statusCode == 409)
@@ -109,24 +111,28 @@ export class SerialPartDetailComponent implements OnInit {
       )
       .subscribe(() => {
         this.nzMessageService.success('Update data');
-    });
-    this.drawerRef.close()
+      });
+    this.drawerRef.close();
   }
 
   close() {
-    this.drawerRef.close()
+    this.drawerRef.close();
   }
 
-  open(id:string, movie_type:MovieType): void {
-    this.drawerService.create<MovieInfoComponent, { id: string, movie_type:MovieType }, string>({
-      nzTitle: 'Movie ma\'lumotlari',
+  open(id: string, movie_type: MovieType): void {
+    this.drawerService.create<
+      MovieInfoComponent,
+      { id: string; movie_type: MovieType },
+      string
+    >({
+      nzTitle: "Movie ma'lumotlari",
       nzContent: MovieInfoComponent,
       nzSize: 'large',
       nzContentParams: {
         id: id,
-        movie_type
-      }
+        movie_type,
+      },
     });
-    this.close()
+    this.close();
   }
 }

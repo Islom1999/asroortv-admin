@@ -268,6 +268,9 @@ export class MovieDetailComponent {
 
       video_id: new FormControl('', [Validators.required]),
       duration: new FormControl(0, [Validators.required, Validators.min(0)]),
+
+      posted: new FormControl(false, [Validators.required]),
+      posted_at: new FormControl(new Date(), [Validators.required]),
     });
 
     if (this.movie_type == MovieType.serial) {
