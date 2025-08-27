@@ -1,0 +1,53 @@
+<div>
+  <h2>File Yuklash</h2>
+  <nz-upload
+    [nzBeforeUpload]="beforeUpload"
+    [nzShowUploadList]="false"
+    nzType="drag"
+    [nzDisabled]="uploading || processing"
+    [nzMultiple]="false"
+    accept=".pdf"
+  >
+    <ng-container *ngIf="!uploading && !processing">
+      <p class="ant-upload-drag-icon">
+        <span nz-icon nzType="inbox"></span>
+      </p>
+      <p class="ant-upload-text">Fileni shu yerga yuklang</p>
+      <p class="ant-upload-hint">
+        File hajmi 20mb dan ko'p bolmasligi va pdf formatda yuklanishi kerak
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="uploading">
+      <nz-progress
+        nzType="circle"
+        *ngIf="uploading"
+        [nzPercent]="uploadProgress"
+      ></nz-progress>
+      <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+      <h2>Sizning Filengiz yuklanyapti</h2>
+    </ng-container>
+
+    <ng-container *ngIf="processing">
+      <nz-progress
+        nzType="circle"
+        *ngIf="processing"
+        [nzPercent]="processingProgress"
+      ></nz-progress>
+      <h2>Yana ozgina kuting deyali tugadi</h2>
+    </ng-container>
+  </nz-upload>
+
+  <div class="container">
+    <button
+      (click)="back()"
+      nzType="default"
+      nz-button
+      nzSize="large"
+      nzType="default"
+      [disabled]="uploading || processing"
+    >
+      Ortga
+    </button>
+  </div>
+</div>

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -8,6 +14,13 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NestedValuePipe } from './nested-value.pipe';
+import { DatePipe } from '@angular/common';
+
+export interface IColumn {
+  title: string;
+  key: string;
+  type?: 'costom' | 'default' | 'date';
+}
 
 @Component({
   selector: 'app-base-table',
@@ -21,26 +34,30 @@ import { NestedValuePipe } from './nested-value.pipe';
     NzSelectModule,
     NzPopconfirmModule,
     NestedValuePipe,
+    DatePipe,
   ],
   templateUrl: './base-table.component.html',
   styleUrl: './base-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseTableComponent {
-  @Input() columns: { title: string, key: string }[] = [];
+  @Input() columns: IColumn[] = [];
   @Output() onDelete = new EventEmitter<string>();
   @Output() onEdit = new EventEmitter<string>();
-  @Output() queryParamsChange = new EventEmitter<{ pageIndex: number, pageSize: number }>();
+  @Output() queryParamsChange = new EventEmitter<{
+    pageIndex: number;
+    pageSize: number;
+  }>();
 
   @Input() data: any[] = [];
   @Input() loading: boolean = false;
   @Input() total: number = 0; // jami elementlar soni
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
-  @Input() isDelete: boolean = true
-  @Input() nzTypeDelete: string = 'delete'
-  @Input() isEdit: boolean = true
-  @Input() nzTypeEdit: string = 'edit'
+  @Input() isDelete: boolean = true;
+  @Input() nzTypeDelete: string = 'delete';
+  @Input() isEdit: boolean = true;
+  @Input() nzTypeEdit: string = 'edit';
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex, pageSize } = params;

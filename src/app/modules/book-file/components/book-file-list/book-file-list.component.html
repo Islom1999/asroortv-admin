@@ -1,0 +1,41 @@
+<div class="table-top">
+  <div class="left">
+    <h2>Kitoblar fayllari ro'yhati</h2>
+  </div>
+  <div class="right">
+    <a
+      nz-button
+      [routerLink]="['add']"
+      nzType="primary"
+      nzSearch
+      nzSize="large"
+    >
+      <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+    </a>
+  </div>
+</div>
+
+<nz-input-group [nzSuffix]="suffixIcon" nzSearch nzSize="large">
+  <input
+    nz-input
+    placeholder="izlash..."
+    [(ngModel)]="searchValue"
+    (ngModelChange)="onSearchChange($event)"
+  />
+  <ng-template #suffixIcon>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+</nz-input-group>
+
+<app-base-table
+  [data]="data()"
+  [loading]="data().length ? false : true"
+  [columns]="columns"
+  [total]="total"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  (onDelete)="delete($event)"
+  (onEdit)="edit($event)"
+  (queryParamsChange)="loadData($event)"
+  [nzTypeEdit]="'folder-open'"
+></app-base-table>

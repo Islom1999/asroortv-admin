@@ -12,42 +12,51 @@
     <tr>
       <th nzWidth="50px">No</th>
       @for(col of columns; track $index){
-        <th>{{ col.title }}</th>
+      <th>{{ col.title }}</th>
       }
       <th>Boshqaruv</th>
     </tr>
   </thead>
   <tbody>
     @for(item of data; track item.id){
-      <tr>
-        <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
-        @for(col of columns; track $index){
-          <td>{{ item | nestedValue : col.key }}</td>
-        }
-        <td>
-          <nz-button-group>
-            @if(isDelete){
-              <button
-                nz-button
-                nzSize="large"
-                nz-popconfirm
-                nzPopconfirmTitle="Ushbu ma'lumotni o'chirmoqchimisiz?"
-                nzPopconfirmPlacement="topRight"
-                (nzOnConfirm)="onDelete.emit(item.id)">
-                <span nz-icon [nzType]="nzTypeDelete" nzTheme="outline" style="color: red;"></span>
-              </button>
-            }
-            @if(isEdit){
-              <button
-                nz-button
-                nzSize="large"
-                (click)="onEdit.emit(item.id)">
-                <span nz-icon [nzType]="nzTypeEdit" nzTheme="outline" style="color: blue;"></span>
-              </button>
-            }
-          </nz-button-group>
-        </td>
-      </tr>
+    <tr>
+      <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+      @for(col of columns; track $index){ @if (col.type == 'date') {
+      <td>{{ item | nestedValue : col.key | date : "dd.MM.yyyy" }}</td>
+      } @else {
+      <td>{{ item | nestedValue : col.key }}</td>
+      } }
+      <td>
+        <nz-button-group>
+          @if(isDelete){
+          <button
+            nz-button
+            nzSize="large"
+            nz-popconfirm
+            nzPopconfirmTitle="Ushbu ma'lumotni o'chirmoqchimisiz?"
+            nzPopconfirmPlacement="topRight"
+            (nzOnConfirm)="onDelete.emit(item.id)"
+          >
+            <span
+              nz-icon
+              [nzType]="nzTypeDelete"
+              nzTheme="outline"
+              style="color: red"
+            ></span>
+          </button>
+          } @if(isEdit){
+          <button nz-button nzSize="large" (click)="onEdit.emit(item.id)">
+            <span
+              nz-icon
+              [nzType]="nzTypeEdit"
+              nzTheme="outline"
+              style="color: blue"
+            ></span>
+          </button>
+          }
+        </nz-button-group>
+      </td>
+    </tr>
     }
   </tbody>
 </nz-table>

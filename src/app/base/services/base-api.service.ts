@@ -14,7 +14,11 @@ export abstract class BaseApiService<T> {
   readonly _params: Observable<HttpParams> = this._paramsSubject.asObservable();
   private _loadingSubject = new BehaviorSubject<Boolean>(true);
 
-  constructor(protected http: HttpClient, protected apiUrl: string, protected params?: HttpParams) {
+  constructor(
+    protected http: HttpClient,
+    protected apiUrl: string,
+    protected params?: HttpParams
+  ) {
     // this.loadAll(params).subscribe()
   }
 
@@ -29,17 +33,20 @@ export abstract class BaseApiService<T> {
   }
 
   loadAll(params?: HttpParams) {
-    return this.http.get<T[]>(`${this.apiUrl}`, { params: this._paramsSubject.value })
+    return this.http
+      .get<T[]>(`${this.apiUrl}`, { params: this._paramsSubject.value })
       .pipe(
-        tap(data => {
+        tap((data) => {
           this._dataSubject.next(data);
           this._loadingSubject.next(false);
         })
-      )
+      );
   }
 
   getAll(params?: HttpParams): Observable<T[]> {
-    return this.http.get<T[]>(`${this.apiUrl}`, { params: this._paramsSubject.value });
+    return this.http.get<T[]>(`${this.apiUrl}`, {
+      params: this._paramsSubject.value,
+    });
   }
 
   getAllPanination(params?: HttpParams): Observable<IPagination<T[]>> {
@@ -49,7 +56,7 @@ export abstract class BaseApiService<T> {
   }
 
   getById(id: string | undefined): Observable<T> {
-    if (!id) return of()
+    if (!id) return of();
     return this.http.get<T>(`${this.apiUrl}/${id}`);
   }
 
@@ -65,7 +72,7 @@ export abstract class BaseApiService<T> {
     return this.http.put<T>(`${this.apiUrl}/${id}`, data).pipe(
       tap(() => {
         // this.loadAll(this.params)
-      }),
+      })
     );
   }
 
@@ -73,7 +80,7 @@ export abstract class BaseApiService<T> {
     return this.http.delete<T>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         // this.loadAll(this.params)
-      }),
+      })
     );
   }
 }

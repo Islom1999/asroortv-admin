@@ -27,7 +27,6 @@
             "allowedCommonJsDependencies": [
               "@ckeditor/ckeditor5-build-classic"
             ],
-            
             "outputPath": "dist/anime-admin",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -50,7 +49,6 @@
               "src/theme.scss",
               "src/styles.scss"
             ],
-
             "scripts": []
           },
           "configurations": {
@@ -81,10 +79,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "anime-admin:build:production"
+              "buildTarget": "anime-admin:build:production",
+              "port": 4300
             },
             "development": {
-              "buildTarget": "anime-admin:build:development"
+              "buildTarget": "anime-admin:build:development",
+              "port": 4300
             }
           },
           "defaultConfiguration": "development"

@@ -1,69 +1,57 @@
-import { Component, Injectable, ɵsetAlternateWeakRefImpl } from '@angular/core';
-import { Breadcrumb } from '../../../../../types/breadcrump';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MovieService } from '../../service/movie.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
-import { Observable, Subscription, catchError, filter, of, tap } from 'rxjs';
-import { NzUploadFile, NzUploadXHRArgs } from 'ng-zorro-antd/upload';
-import { ImageService } from '../../../../shared/services/image.service';
-import { environment } from '../../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { MovieType, Quality, StatusType } from '../../../../../enumerations';
-import { ICountry } from '../../../../../interfaces/country';
-import { CountryService } from '../../../country/service/country.service';
-import { IYear } from '../../../../../interfaces/year';
-import { ISounder } from '../../../../../interfaces/sounder';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzUploadFile, NzUploadXHRArgs } from 'ng-zorro-antd/upload';
+import { Observable, Subscription, catchError, of } from 'rxjs';
+import { Quality, StatusType } from '../../../../../enumerations';
+import { environment } from '../../../../../environments/environment';
+import { IBook, IFile } from '../../../../../interfaces/books';
 import { ICategory } from '../../../../../interfaces/category';
-import { IMovieGenre } from '../../../../../interfaces/movie_genre';
-import { YearService } from '../../../year/service/year.service';
+import { ICountry } from '../../../../../interfaces/country';
+import { ISounder } from '../../../../../interfaces/sounder';
+import { IYear } from '../../../../../interfaces/year';
+import { Breadcrumb } from '../../../../../types/breadcrump';
+import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.service';
+import { ImageService } from '../../../../shared/services/image.service';
+import { BookFileService } from '../../../book-file/service/book-file.service';
 import { CategoryService } from '../../../category/service/category.service';
+import { CountryService } from '../../../country/service/country.service';
+import {
+  getBase64,
+  IUploadRes,
+} from '../../../movie/components/movie-detail/movie-detail.component';
 import { SounderService } from '../../../sounder/service/sounder.service';
+import { YearService } from '../../../year/service/year.service';
+import { BooksService } from '../../service/books.service';
+import { IMovieGenre } from '../../../../../interfaces/movie_genre';
 import { MovieGenreService } from '../../../movie-genre/service/movie-genre.service';
-import { VideosService } from '../../../videos/service/videos.service';
-import { IMovie, IVideo } from '../../../../../interfaces';
-
-export interface IUploadRes {
-  url: string;
-  filename: string;
-}
-
-export const getBase64 = (file: File) => {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-};
 
 @Component({
-  selector: 'app-movie-detail',
-  templateUrl: './movie-detail.component.html',
-  styleUrl: './movie-detail.component.scss',
+  selector: 'app-books-detail',
   standalone: false,
+  templateUrl: './books-detail.component.html',
+  styleUrl: './books-detail.component.scss',
 })
-export class MovieDetailComponent {
+export class BooksDetailComponent {
   public Editor = ClassicEditor;
-  movie!: IMovie;
+  book!: IBook;
 
   quality: Quality[] = Object.values(Quality);
   status_type: StatusType[] = Object.values(StatusType);
-  movie_type!: MovieType;
-  movie_type_serial = MovieType.serial;
 
   country$!: Observable<ICountry[]>;
   year$!: Observable<IYear[]>;
   sounder$!: Observable<ISounder[]>;
   category$!: Observable<ICategory[]>;
-  movie_genre$!: Observable<IMovieGenre[]>;
-  video$!: Observable<IVideo[]>;
+  muvie_genre$!: Observable<IMovieGenre[]>;
+  file$!: Observable<IFile[]>;
 
   listOfSelectedSounder: string[] = [];
   listOfSelectedCategory: string[] = [];
-  listOfSelectedMovieGenre: string[] = [];
+  listOfSelectedBookGenre: string[] = [];
 
   uploadURL = `${environment.apiUrl}/image/upload`;
   // uploadURL = `https://api.tvtime.uz/api/image/upload`
@@ -164,9 +152,9 @@ export class MovieDetailComponent {
   // Image end
 
   breadcrumb: Breadcrumb = {
-    header: 'Movie',
-    label: "Movie ro'yhati",
-    url: '/movie',
+    header: 'Book',
+    label: "Book ro'yhati",
+    url: '/book',
   };
 
   form: FormGroup = new FormGroup({});
@@ -176,8 +164,8 @@ export class MovieDetailComponent {
   }
 
   constructor(
-    private _modelSrv: MovieService,
-    private _videoSrv: VideosService,
+    private _modelSrv: BooksService,
+    private _fileSrv: BookFileService,
     private _countrySrv: CountryService,
     private _yearSrv: YearService,
     private _categorySrv: CategoryService,
@@ -200,18 +188,15 @@ export class MovieDetailComponent {
       },
     ]);
 
-    this.movie_type = this.route.snapshot.data['type'];
-
     if (this.id) {
-      this._modelSrv.getByIdMovie(this.id).subscribe((movie) => {
-        this.movie = movie;
+      this._modelSrv.getById(this.id).subscribe((book) => {
+        this.book = book;
         this.form.patchValue({
-          ...movie,
-          categoryId: movie?.category?.map((item) => item.id),
-          sounderId: movie?.sounder?.map((item) => item.id),
-          movieGenreId: movie?.movie_genre?.map((item) => item.id),
+          ...book,
+          categoryId: book?.category?.map((item) => item.id),
+          sounderId: book?.sounder?.map((item) => item.id),
         });
-        this.fileListImages = movie.images.map((item, index) => {
+        this.fileListImages = book.images.map((item, index) => {
           return {
             uid: `-${index + 1}`,
             name: item,
@@ -223,7 +208,7 @@ export class MovieDetailComponent {
             },
           };
         });
-        this.fileListImagesFrame = movie.frame_images.map((item, index) => {
+        this.fileListImagesFrame = book.frame_images.map((item, index) => {
           return {
             uid: `-${index + 1}`,
             name: item,
@@ -244,43 +229,32 @@ export class MovieDetailComponent {
     }
 
     this.form = new FormGroup({
-      // video: new FormControl('', [(this.movie_type != MovieType.serial) ? Validators.required : Validators.minLength(0)]),
-
-      // treyler: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
       descr: new FormControl('', [Validators.required]),
-      // quality: new FormControl(Quality.hd_720, [Validators.required]),
       min_age: new FormControl(18, [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
       ]),
-      language: new FormControl("O'zbek", [Validators.required]),
       status_type: new FormControl(StatusType.free, [Validators.required]),
-      is_slider: new FormControl(false, [Validators.required]),
 
       country_id: new FormControl('', [Validators.required]),
       year_id: new FormControl('', [Validators.required]),
 
       sounderId: new FormControl('', [Validators.required]),
       categoryId: new FormControl('', [Validators.required]),
-      movieGenreId: new FormControl('', [Validators.required]),
+      // bookGenreId: new FormControl('', [Validators.required]),
 
-      video_id: new FormControl('', [Validators.required]),
-      duration: new FormControl(0, [Validators.required, Validators.min(0)]),
+      file_id: new FormControl('', [Validators.required]),
+      price: new FormControl(0, [Validators.required, Validators.min(0)]),
     });
-
-    if (this.movie_type == MovieType.serial) {
-      this.form.removeControl('video_id');
-      this.form.removeControl('duration');
-    }
 
     this.country$ = this._countrySrv.getAll();
     this.year$ = this._yearSrv.getAll();
     this.category$ = this._categorySrv.getAll();
-    this.movie_genre$ = this._movieGenreSrv.getAll();
     this.sounder$ = this._sounderSrv.getAll();
-    this.video$ = this._videoSrv.getAll();
+
+    this.file$ = this._fileSrv.getAll();
   }
 
   submit() {
@@ -291,7 +265,7 @@ export class MovieDetailComponent {
       } else {
         this.create();
       }
-      this._videoSrv.loadAll();
+      this._fileSrv.loadAll();
     } else {
       Object.values(this.form.controls).forEach((control) => {
         if (control.invalid) {
@@ -303,90 +277,44 @@ export class MovieDetailComponent {
   }
 
   create() {
-    if (this.movie_type == MovieType.movie) {
-      this._modelSrv
-        .createMovie({
-          ...this.form.value,
-          images: this.getImageAllImages(),
-          frame_images: this.getImageAllImagesFrame(),
+    this._modelSrv
+      .create({
+        ...this.form.value,
+        images: this.getImageAllImages(),
+        frame_images: this.getImageAllImagesFrame(),
+      })
+      .pipe(
+        catchError(({ error }) => {
+          if (error?.statusCode == 409)
+            this.nzMessageService.error(error?.message);
+          this.disableBtn = false;
+          return of();
         })
-        .pipe(
-          catchError(({ error }) => {
-            if (error?.statusCode == 409)
-              this.nzMessageService.error(error?.message);
-            this.disableBtn = false;
-            return of();
-          })
-        )
-        .subscribe(() => {
-          this.nzMessageService.success('Create data');
-          this.router.navigate(['/', 'movie']);
-        });
-    } else {
-      delete this.form.value.duration;
-      delete this.form.value.video;
-      this._modelSrv
-        .createSerial({
-          ...this.form.value,
-          images: this.getImageAllImages(),
-          frame_images: this.getImageAllImagesFrame(),
-        })
-        .pipe(
-          catchError(({ error }) => {
-            if (error?.statusCode == 409)
-              this.nzMessageService.error(error?.message);
-            this.disableBtn = false;
-            return of();
-          })
-        )
-        .subscribe(() => {
-          this.nzMessageService.success('Create data');
-          this.router.navigate(['/', 'movie']);
-        });
-    }
+      )
+      .subscribe(() => {
+        this.nzMessageService.success('Create data');
+        this.router.navigate(['/', 'book']);
+      });
   }
 
   update(id: string) {
-    if (this.movie_type == MovieType.movie) {
-      this._modelSrv
-        .updateMovie(id, {
-          ...this.form.value,
-          images: this.getImageAllImages(),
-          frame_images: this.getImageAllImagesFrame(),
+    this._modelSrv
+      .update(id, {
+        ...this.form.value,
+        images: this.getImageAllImages(),
+        frame_images: this.getImageAllImagesFrame(),
+      })
+      .pipe(
+        catchError(({ error }) => {
+          if (error?.statusCode == 409)
+            this.nzMessageService.error(error?.message);
+          // this.disableBtn = false;
+          return of();
         })
-        .pipe(
-          catchError(({ error }) => {
-            if (error?.statusCode == 409)
-              this.nzMessageService.error(error?.message);
-            // this.disableBtn = false;
-            return of();
-          })
-        )
-        .subscribe(() => {
-          this.nzMessageService.success('Update data');
-          this.router.navigate(['/', 'movie']);
-        });
-    } else {
-      delete this.form.value.duration;
-      delete this.form.value.video;
-      this._modelSrv
-        .updateSerial(id, {
-          ...this.form.value,
-          images: this.getImageAllImages(),
-          frame_images: this.getImageAllImagesFrame(),
-        })
-        .pipe(
-          catchError(({ error }) => {
-            if (error?.statusCode == 409)
-              this.nzMessageService.error(error?.message);
-            // this.disableBtn = false;
-            return of();
-          })
-        )
-        .subscribe(() => {
-          this.nzMessageService.success('Update data');
-          this.router.navigate(['/', 'movie']);
-        });
-    }
+      )
+      .subscribe(() => {
+        this.nzMessageService.success('Update data');
+        this.router.navigate(['/', 'book']);
+      });
   }
 }
