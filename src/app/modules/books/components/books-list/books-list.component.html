@@ -3,14 +3,19 @@
     <h2>Kitoblar ro'yhati</h2>
   </div>
   <div class="right">
+    <a nz-button [routerLink]="['add']" nzType="primary" nzSize="large">
+      <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+      Kitob qo'shish
+    </a>
     <a
       nz-button
-      [routerLink]="['add']"
-      nzType="primary"
-      nzSearch
+      [routerLink]="['add-parent']"
+      nzType="default"
       nzSize="large"
+      style="margin-left: 8px;"
     >
       <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+      Parent qo'shish
     </a>
   </div>
 </div>

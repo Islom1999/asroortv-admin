@@ -1,4 +1,4 @@
-import { StatusType } from '../enumerations';
+import { BookType, StatusType } from '../enumerations';
 import { ICategory } from './category';
 import { ICountry } from './country';
 import { IServer } from './movie';
@@ -17,6 +17,8 @@ export interface IBook {
   min_age: number;
   price: number;
   status_type: StatusType;
+  book_type: BookType;
+  parent_id?: string;
   country_id: string;
   year_id: string;
   file_id: string;
@@ -27,9 +29,12 @@ export interface IBook {
   movie_genre: IMovieGenre[];
   country: ICountry;
   year: IYear;
-  book_file: IFile;
+  book_file?: IFile | null;
   commit: any[];
   likedislike: any[];
+  parent?: IBook | null;
+  children?: IBook[];
+  is_pay?: number;
 }
 
 export interface IFile {

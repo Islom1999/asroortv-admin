@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IBook } from '../../../../../interfaces/books';
-import { HttpClient } from '@angular/common/http';
 import { BaseComponentList } from '../../../../base/components/base-list';
 import { Breadcrumb } from '../../../../../types/breadcrump';
 import { BooksService } from '../../service/books.service';
+import { IBook } from '../../../../../interfaces/books';
 import { IColumn } from '../../../../base/components/base-table/base-table.component';
 
 @Component({
@@ -25,7 +22,8 @@ export class BooksListComponent extends BaseComponentList<IBook> {
 
   columns: IColumn[] = [
     { title: 'Nomi', key: 'name' },
-    { title: 'Turi', key: 'status_type' },
+    { title: 'Status', key: 'status_type' },
+    { title: "Ko'rinish", key: 'book_type' },
     { title: 'Narxi', key: 'price' },
     { title: "Qo'shilgan", key: 'created_at', type: 'date' },
     { title: 'Yangilangan', key: 'updated_at', type: 'date' },

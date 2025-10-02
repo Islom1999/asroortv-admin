@@ -1,0 +1,67 @@
+<nz-spin [nzSpinning]="loading">
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Nom</nz-form-label>
+      <nz-form-control [nzSpan]="14" nzErrorTip="Maydonni to'ldiring">
+        <input nz-input formControlName="name" placeholder="Bo'lim nomi" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Fayl</nz-form-label>
+      <nz-form-control [nzSpan]="14" nzErrorTip="Faylni tanlang">
+        <nz-select
+          nzShowSearch
+          nzPlaceHolder="PDF faylni tanlang"
+          formControlName="file_id"
+        >
+          <nz-option
+            *ngFor="let item of file$ | async"
+            [nzLabel]="
+              item.file_name + ' - ' + (item.created_at | date : 'dd.MM.yyyy')
+            "
+            [nzValue]="item.id"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- <nz-form-item>
+      <nz-form-label [nzSpan]="7">Holati</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <nz-select formControlName="status_type">
+          <nz-option
+            *ngFor="let item of statusType"
+            [nzLabel]="item"
+            [nzValue]="item"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">Narx</nz-form-label>
+      <nz-form-control [nzSpan]="14" nzErrorTip="Qiymat musbat bo'lishi kerak">
+        <input nz-input type="number" formControlName="price" placeholder="Narx" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">Qisqacha</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <textarea nz-input rows="3" formControlName="descr" placeholder="Tavsif"></textarea>
+      </nz-form-control>
+    </nz-form-item> -->
+
+    <nz-form-item>
+      <nz-form-control [nzSpan]="21" [nzOffset]="7">
+        <button nz-button nzType="primary" [disabled]="disableBtn">
+          Saqlash
+        </button>
+        <button nz-button nzType="default" type="button" (click)="close()">
+          Bekor qilish
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-spin>

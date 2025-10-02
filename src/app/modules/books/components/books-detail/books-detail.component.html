@@ -1,7 +1,15 @@
 <h2>
-  Kitobni
+  {{ isParent ? "Parent kitobni" : "Kitobni" }}
   {{ id ? "o'zgartirish" : "yaratish" }}
 </h2>
+
+<nz-alert
+  *ngIf="isParent"
+  nzType="info"
+  nzShowIcon
+  nzMessage="Parent kitob uchun PDF fayl majburiy emas. Bo'limlar quyida boshqariladi."
+  style="margin-bottom: 16px"
+></nz-alert>
 
 <h2>Images</h2>
 <div class="image-container">
@@ -71,7 +79,7 @@
   <nz-spin [nzSpinning]="loading">
     <form nz-form [formGroup]="form" (submit)="submit()">
       <h2 class="form-title">
-        {{ id ? "kitobni o'zgartirish" : "kitob qo'shish" }}
+        {{ isParent ? "parent kitobni o'zgartirish" : "kitob qo'shish" }}
       </h2>
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
@@ -85,8 +93,13 @@
         </nz-form-control>
       </nz-form-item>
 
+      @if (mode === 'parent') {
       <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>File (PDF)</nz-form-label>
+        <nz-form-label
+          [nzSpan]="7"
+          [nzRequired]="bookType === bookTypeEnum.book"
+          >File (PDF)</nz-form-label
+        >
         <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input">
           <nz-select
             nzShowSearch
@@ -94,13 +107,13 @@
             formControlName="file_id"
           >
             <nz-option
-              *ngIf="book?.book_file"
+              *ngIf="book?.book_file as bookFile"
               [nzLabel]="
-                book.book_file.file_name +
+                bookFile.file_name +
                 ' - ' +
-                (book.book_file.created_at | date : 'dd.MM.yyyy')
+                (bookFile.created_at | date : 'dd.MM.yyyy')
               "
-              [nzValue]="book.book_file.id"
+              [nzValue]="bookFile.id"
             ></nz-option>
             <nz-option
               *ngFor="let item of file$ | async"
@@ -112,6 +125,7 @@
           </nz-select>
         </nz-form-control>
       </nz-form-item>
+      }
 
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>country</nz-form-label>
@@ -149,11 +163,7 @@
 
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>Sounder</nz-form-label>
-        <nz-form-control
-          [nzSpan]="12"
-          nzHasFeedback
-          nzErrorTip="Please input your permision!"
-        >
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input">
           <nz-select
             [nzMaxTagCount]="3"
             [nzMaxTagPlaceholder]="tagPlaceHolder"
@@ -176,11 +186,7 @@
 
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>Category</nz-form-label>
-        <nz-form-control
-          [nzSpan]="12"
-          nzHasFeedback
-          nzErrorTip="Please input your permision!"
-        >
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input">
           <nz-select
             [nzMaxTagCount]="3"
             [nzMaxTagPlaceholder]="tagPlaceHolder"
@@ -282,5 +288,73 @@
         </nz-form-control>
       </nz-form-item>
     </form>
+
+    <div *ngIf="isParent && book?.id" class="children-container">
+      <div class="table-top">
+        <div class="left">
+          <h2>Bo'limlar</h2>
+        </div>
+        <div class="right">
+          <button
+            nz-button
+            nzType="dashed"
+            nzSize="large"
+            (click)="openChild()"
+          >
+            <span nz-icon nzType="plus-circle"></span>
+            Bo'lim qo'shish
+          </button>
+        </div>
+      </div>
+
+      <nz-table
+        [nzData]="children"
+        nzSize="middle"
+        *ngIf="children.length; else noChildren"
+      >
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nomi</th>
+            <th>Status</th>
+            <th>Yangilangan</th>
+            <th>Boshqaruv</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let child of children; let idx = index">
+            <td>{{ idx + 1 }}</td>
+            <td>{{ child.name }}</td>
+            <td>{{ child.status_type }}</td>
+            <td>{{ child.updated_at | date : "dd.MM.yyyy HH:mm" }}</td>
+            <td>
+              <nz-button-group>
+                <button nz-button nzSize="small" (click)="openChild(child)">
+                  <span nz-icon nzType="edit"></span>
+                </button>
+                <button
+                  nz-button
+                  nzSize="small"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Bo'limni o'chirishni tasdiqlaysizmi?"
+                  nzPopconfirmPlacement="topRight"
+                  (nzOnConfirm)="deleteChild(child.id)"
+                >
+                  <span
+                    nz-icon
+                    nzType="delete"
+                    nzTheme="outline"
+                    style="color: red"
+                  ></span>
+                </button>
+              </nz-button-group>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #noChildren>
+        <p class="empty-message">Hozircha bo'limlar mavjud emas.</p>
+      </ng-template>
+    </div>
   </nz-spin>
 </div>

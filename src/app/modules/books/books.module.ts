@@ -10,6 +10,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { BookChildDetailComponent } from './components/book-child-detail/book-child-detail.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,12 @@ const routes: Routes = [
   {
     path: 'add',
     component: BooksDetailComponent,
+    data: { mode: 'book' },
+  },
+  {
+    path: 'add-parent',
+    component: BooksDetailComponent,
+    data: { mode: 'parent' },
   },
   {
     path: 'update/:id',
@@ -27,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [BooksListComponent, BooksDetailComponent],
+  declarations: [BooksListComponent, BooksDetailComponent, BookChildDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -40,6 +48,7 @@ const routes: Routes = [
     NzUploadModule,
     NzModalModule,
     NzDrawerModule,
+    NzAlertModule,
   ],
 })
 export class BooksModule {}
