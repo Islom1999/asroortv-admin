@@ -8,19 +8,19 @@ import { BreadcrumbsService } from '../../../../shared/services/breadcrumbs.serv
 import { YearService } from '../../service/year.service';
 
 @Component({
-    selector: 'app-year-detail',
-    templateUrl: './year-detail.component.html',
-    styleUrl: './year-detail.component.scss',
-    standalone: false
+  selector: 'app-year-detail',
+  templateUrl: './year-detail.component.html',
+  styleUrl: './year-detail.component.scss',
+  standalone: false,
 })
 export class YearDetailComponent {
   loading = true;
   disableBtn = true;
 
   breadcrumb: Breadcrumb = {
-    header: "Year", 
-    label: "Year ro'yhati", 
-    url: '/year'
+    header: 'Year',
+    label: "Year ro'yhati",
+    url: '/year',
   };
 
   form: FormGroup = new FormGroup({});
@@ -34,20 +34,24 @@ export class YearDetailComponent {
     private nzMessageService: NzMessageService,
     private router: Router,
     private route: ActivatedRoute,
-    protected breadcrumbService: BreadcrumbsService,
+    protected breadcrumbService: BreadcrumbsService
   ) {}
 
   ngOnInit(): void {
     this.breadcrumbService.setBreadcrumbs([
-      { 
-        header:this.breadcrumb.header,
-        label:this.breadcrumb.label, 
-        url: this.breadcrumb.url
+      {
+        header: this.breadcrumb.header,
+        label: this.breadcrumb.label,
+        url: this.breadcrumb.url,
       },
     ]);
 
     this.form = new FormGroup({
-      year: new FormControl(1900, [Validators.required, Validators.min(1900), Validators.max(2024)]),
+      year: new FormControl(1900, [
+        Validators.required,
+        Validators.min(1900),
+        Validators.max(2025),
+      ]),
     });
     if (this.id) {
       this._modelSrv.getById(this.id).subscribe((year) => {
@@ -98,7 +102,7 @@ export class YearDetailComponent {
 
   update(id: string) {
     this._modelSrv
-      .update(id, {...this.form.value})
+      .update(id, { ...this.form.value })
       .pipe(
         catchError(({ error }) => {
           if (error?.statusCode == 409)
