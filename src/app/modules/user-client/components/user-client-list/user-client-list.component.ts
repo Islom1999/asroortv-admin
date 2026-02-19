@@ -16,7 +16,7 @@ import { HttpParams } from '@angular/common/http';
   standalone: false
 })
 export class UserClientListComponent extends BaseComponentList<IUser> {
-  id = '';
+  bigint_id = '';
   name = '';
   email = '';
   phone = '';
@@ -61,6 +61,6 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
   }
 
   onSearchChange(value: string): void {
-    this.onSearch({ id: this.id, name: this.name, email: this.email, phone: this.phone, status_type: this.status_type as StatusType });
+    this.onSearch({ bigint_id: +this.bigint_id, name: this.name, email: this.email, phone: this.phone, status_type: this.status_type as StatusType });
   }
 }
