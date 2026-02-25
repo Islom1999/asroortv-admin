@@ -61,6 +61,6 @@ export class UserClientListComponent extends BaseComponentList<IUser> {
   }
 
   onSearchChange(value: string): void {
-    this.onSearch({ bigint_id: +this.bigint_id, name: this.name, email: this.email, phone: this.phone, status_type: this.status_type as StatusType });
+    this.onSearch({ bigint_id: this.bigint_id ? +this.bigint_id : undefined, name: this.name, email: this.email, phone: this.phone, status_type: this.status_type as StatusType });
   }
 }
